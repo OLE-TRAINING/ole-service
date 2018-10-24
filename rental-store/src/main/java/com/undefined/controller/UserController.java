@@ -16,7 +16,8 @@ import com.undefined.business.TokenService;
 import com.undefined.business.UserService;
 import com.undefined.commons.error.ErrorMessage;
 import com.undefined.commons.error.ErrorResponse;
-import com.undefined.commons.exceptions.DuplicatedUserDataException;
+import com.undefined.commons.exceptions.DuplicatedEmailException;
+import com.undefined.commons.exceptions.DuplicatedUsernameException;
 import com.undefined.commons.exceptions.InvalidEmailException;
 import com.undefined.commons.exceptions.InvalidUserException;
 import com.undefined.commons.exceptions.NullFieldException;
@@ -70,10 +71,10 @@ public class UserController {
 			throw new InvalidUserException(error);
 		}
 		if (userDataValidator.emailAlreadyExists(user.getEmail())) {
-			throw new DuplicatedUserDataException(new ErrorResponse(ErrorMessage.Resource.DUPLICATED_EMAIL));
+			throw new DuplicatedEmailException(new ErrorResponse(ErrorMessage.Resource.DUPLICATED_EMAIL));
 		}
 		if (userDataValidator.usernameAlreadyExists(user.getUsername())) {
-			throw new DuplicatedUserDataException(new ErrorResponse(ErrorMessage.Resource.DUPLICATED_USERNAME));
+			throw new DuplicatedUsernameException(new ErrorResponse(ErrorMessage.Resource.DUPLICATED_USERNAME));
 		}
 		userService.insertUser(user);
 		String token = tokenService.generateToken();
