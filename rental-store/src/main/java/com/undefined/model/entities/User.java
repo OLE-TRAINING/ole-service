@@ -8,7 +8,9 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.undefined.model.commons.RegistrationStatus;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
+import com.undefined.commons.utils.RegistrationStatus;
 
 @Entity
 @Table(name = "users")
@@ -17,7 +19,7 @@ public class User {
 	@Id
 	private String email;
 	@Column
-	@JsonIgnore
+	@JsonProperty(access = Access.WRITE_ONLY)
 	private String password;
 	@Column(name = "complete_name")
 	private String completeName;
@@ -25,7 +27,10 @@ public class User {
 	private String username;
 	@Enumerated(EnumType.STRING)
 	@Column(name = "registration_status")
-	private RegistrationStatus registrationStatus;
+	private RegistrationStatus registrationStatus = RegistrationStatus.PENDING;
+	@Column(name = "confirmation_token")
+	@JsonProperty(access = Access.WRITE_ONLY)
+	private String confirmationToken = null;
 
 	public User() {
 
@@ -46,6 +51,7 @@ public class User {
 		this.email = email;
 	}
 
+	@JsonIgnore
 	public String getPassword() {
 		return password;
 	}
@@ -76,6 +82,15 @@ public class User {
 
 	public void setRegistrationStatus(RegistrationStatus registrationStatus) {
 		this.registrationStatus = registrationStatus;
+	}
+
+	@JsonIgnore
+	public String getConfirmationToken() {
+		return confirmationToken;
+	}
+
+	public void setConfirmationToken(String confirmationToken) {
+		this.confirmationToken = confirmationToken;
 	}
 
 	@Override

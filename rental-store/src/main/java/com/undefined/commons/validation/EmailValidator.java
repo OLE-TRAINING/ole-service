@@ -1,4 +1,4 @@
-package com.undefined.model.utils;
+package com.undefined.commons.validation;
 
 import java.util.regex.Pattern;
 

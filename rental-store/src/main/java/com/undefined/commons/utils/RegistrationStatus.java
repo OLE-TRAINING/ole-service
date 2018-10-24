@@ -1,4 +1,4 @@
-package com.undefined.model.commons;
+package com.undefined.commons.utils;
 
 public enum RegistrationStatus {
 
