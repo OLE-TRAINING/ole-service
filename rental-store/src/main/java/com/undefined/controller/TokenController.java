@@ -1,31 +1,45 @@
 package com.undefined.controller;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.core.env.Environment;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.undefined.business.TokenService;
+import com.undefined.business.UserService;
+import com.undefined.commons.error.ErrorMessage;
+import com.undefined.commons.error.ErrorResponse;
+import com.undefined.commons.exceptions.InexistentEmailOnDatabaseException;
+import com.undefined.commons.exceptions.InvalidEmailException;
+import com.undefined.commons.exceptions.NullFieldException;
+import com.undefined.commons.validation.EmailValidator;
+import com.undefined.model.entities.User;
+
 @RestController
-@PropertySource("classpath:java-mail.properties")
 public class TokenController {
 
 	@Autowired
-	private JavaMailSender mailSender;
-	
+	private UserService userService;
 	@Autowired
-	private Environment env;
+	private TokenService tokenService;
 	
-	@GetMapping("/token/{email}")
-	public void sendTokenToEmail(@PathVariable("email") String email) {
-		SimpleMailMessage message = new SimpleMailMessage();
-		message.setText("ola");
-		message.setTo(email);
-		message.setFrom(env.getProperty("spring.mail.username"));
-		
-		mailSender.send(message);
+	@PutMapping("/tokens/{email}")
+	public void processToken(@PathVariable("email") String email) {
+		if (StringUtils.isEmpty(email)) {
+			throw new NullFieldException(new ErrorResponse(ErrorMessage.Validation.NULL_OR_EMPTY_FIELD));
+		}
+		if (!EmailValidator.validateEmail(email)) {
+			throw new InvalidEmailException(new ErrorResponse(ErrorMessage.Validation.INVALID_EMAIL));
+		}
+		Optional<User> user = userService.findUserByEmail(email);
+		if (!user.isPresent()) {
+			throw new InexistentEmailOnDatabaseException(new ErrorResponse(ErrorMessage.Resource.INEXISTENT_EMAIL));
+		}
+		String token = tokenService.generateToken();
+		tokenService.vinculateTokenToUser(user.get().getEmail(), token);
+		tokenService.sendTokenToEmail(user.get().getEmail(), token, "Cadastro de usuário");
 	}
 }

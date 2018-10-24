@@ -24,5 +24,6 @@ public class ErrorMessage {
 		
 		public static final String DUPLICATED_EMAIL = "error.resource.email.duplicated";
 		public static final String DUPLICATED_USERNAME = "error.resource.username.duplicated";
+		public static final String INEXISTENT_EMAIL = "error.resource.email.inexistent";
 	}
 }
