@@ -1,10 +1,10 @@
-package com.undefined.model;
+package com.undefined.model.validation;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.Test;
 
-import com.undefined.model.utils.EmailValidator;
+import com.undefined.commons.validation.EmailValidator;
 
 public class EmailValidatorTest {
 	

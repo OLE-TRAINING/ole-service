@@ -1,8 +1,8 @@
-package com.undefined.model.utils;
+package com.undefined.commons.validation;
 
 import java.lang.reflect.Field;
 
-import com.undefined.model.exceptions.NullFieldException;
+import com.undefined.commons.exceptions.NullFieldException;
 
 public class NullFieldValidator {
 
@@ -11,7 +11,8 @@ public class NullFieldValidator {
 	}
 	
 	public static <T> void checkForNullFields(T entity) throws IllegalAccessException {
-		for (Field field : entity.getClass().getFields()) {
+		for (Field field : entity.getClass().getDeclaredFields()) {
+			field.setAccessible(true);
 			if (field.get(entity) == null) {
 				throw new NullFieldException(field.getName());
 			}

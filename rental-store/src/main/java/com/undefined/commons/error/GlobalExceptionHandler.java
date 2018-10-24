@@ -1,4 +1,4 @@
-package com.undefined.error;
+package com.undefined.commons.error;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
@@ -8,7 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import com.undefined.model.exceptions.BadRequestException;
+import com.undefined.commons.exceptions.BadRequestException;
+import com.undefined.commons.exceptions.DuplicatedUserDataException;
 
 @ControllerAdvice
 @PropertySource("classpath:error-messages.properties")
@@ -22,6 +23,13 @@ public class GlobalExceptionHandler {
 		String message = env.getProperty(ex.getErrorResponse().getKey());
 		ErrorResponse error = new ErrorResponse(ex.getErrorResponse().getKey(), message);
 		return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+	}
+	
+	@ExceptionHandler(value = { DuplicatedUserDataException.class })
+	public ResponseEntity<Object> handleDuplicatedData(DuplicatedUserDataException ex) {
+		String message = env.getProperty(ex.getErrorResponse().getKey());
+		ErrorResponse error = new ErrorResponse(ex.getErrorResponse().getKey(), message);
+		return new ResponseEntity<>(error, HttpStatus.CONFLICT);
 	}
 	
 	@ExceptionHandler(value = { Exception.class })
