@@ -1,4 +1,4 @@
-package com.undefined.error;
+package com.undefined.commons.error;
 
 public class ErrorResponse {
 	

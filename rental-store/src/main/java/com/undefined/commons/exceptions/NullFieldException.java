@@ -1,6 +1,6 @@
-package com.undefined.model.exceptions;
+package com.undefined.commons.exceptions;
 
-import com.undefined.error.ErrorResponse;
+import com.undefined.commons.error.ErrorResponse;
 
 @SuppressWarnings("serial")
 public class NullFieldException extends BadRequestException {

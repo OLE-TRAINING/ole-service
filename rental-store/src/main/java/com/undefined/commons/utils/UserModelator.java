@@ -1,6 +1,5 @@
-package com.undefined.model.utils;
+package com.undefined.commons.utils;
 
-import com.undefined.model.commons.RegistrationStatus;
 import com.undefined.model.entities.User;
 
 public class UserModelator {
