@@ -3,19 +3,19 @@ package com.undefined.commons.exceptions;
 import com.undefined.commons.error.ErrorResponse;
 
 @SuppressWarnings("serial")
-public class DuplicatedUserDataException extends RuntimeException {
-	
+public class ConflitException extends RuntimeException {
+
 	private ErrorResponse errorResponse;
 
-	public DuplicatedUserDataException() {
+	public ConflitException() {
 		
 	}
 	
-	public DuplicatedUserDataException(String message) {
+	public ConflitException(String message) {
 		super(message);
 	}
 	
-	public DuplicatedUserDataException(ErrorResponse errorResponse) {
+	public ConflitException(ErrorResponse errorResponse) {
 		this.errorResponse = errorResponse;
 	}
 	
