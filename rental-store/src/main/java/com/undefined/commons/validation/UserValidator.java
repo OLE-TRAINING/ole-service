@@ -11,15 +11,15 @@ public class UserValidator {
 	}
 	
 	private static boolean validateName(String name) {
-		return name.length() < 50 && name.matches("^[a-zA-Z]+( [a-zA-Z]+)*$");	
+		return name.length() <= 50 && name.matches("^[a-zA-Z]+( [a-zA-Z]+)*$");	
 	}
 	
 	private static boolean validateUsername(String username) {
-		return username.length() < 15 && username.matches("[a-zA-Z0-9]+");
+		return username.length() <= 15 && username.matches("[a-zA-Z0-9]+");
 	}
 	
 	private static boolean validatePassword(String password) {
-		return password.length() > 6 && password.length() < 10 && password.matches("^(?=.*[a-zA-Z])(?=.*[0-9])[a-zA-Z0-9]+$");
+		return password.length() >= 6 && password.length() <= 10 && password.matches("^(?=.*[a-zA-Z])(?=.*[0-9])[a-zA-Z0-9]+$");
 	}
 	
 	public static ErrorResponse validateUser(User user) {
