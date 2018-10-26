@@ -1,5 +1,7 @@
 package com.undefined.commons.validation;
 
+import java.util.regex.Pattern;
+
 import com.undefined.commons.error.ErrorMessage;
 import com.undefined.commons.error.ErrorResponse;
 import com.undefined.model.entities.User;
@@ -10,11 +12,15 @@ public class UserValidator {
 		
 	}
 	
-	private static boolean validateName(String name) {
+	public static boolean validateEmail(String email) {
+		return Pattern.compile("^[\\w-\\+]+(\\.[\\w]+)*@[\\w-]+(\\.[\\w]+)*(\\.[a-z]{2,})$", Pattern.CASE_INSENSITIVE).matcher(email).matches();
+	}
+	
+	public static boolean validateName(String name) {
 		return name.length() <= 50 && name.matches("^[a-zA-Z]+( [a-zA-Z]+)*$");	
 	}
 	
-	private static boolean validateUsername(String username) {
+	public static boolean validateUsername(String username) {
 		return username.length() <= 15 && username.matches("[a-zA-Z0-9]+");
 	}
 	
@@ -23,7 +29,7 @@ public class UserValidator {
 	}
 	
 	public static ErrorResponse validateUser(User user) {
-		if (!EmailValidator.validateEmail(user.getEmail())) {
+		if (!validateEmail(user.getEmail())) {
 			return new ErrorResponse(ErrorMessage.Validation.INVALID_EMAIL);
 		} else if (!validateName(user.getCompleteName())) {
 			return new ErrorResponse(ErrorMessage.Validation.INVALID_COMPLETE_NAME);

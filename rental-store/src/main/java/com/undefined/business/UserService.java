@@ -4,8 +4,10 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.undefined.commons.utils.PasswordModelator;
+import com.undefined.commons.utils.RegistrationStatus;
 import com.undefined.model.entities.User;
 import com.undefined.model.repositories.UserRepository;
 
@@ -26,5 +28,10 @@ public class UserService {
 	public void insertUser(User user) {
 		user.setPassword(PasswordModelator.getEncryptedPassword(user.getPassword()));
 		userRepository.save(user);
+	}
+	
+	@Transactional
+	public void registerUser(String email) {
+		userRepository.setRegistrationStatusByEmail(RegistrationStatus.REGISTERED, email);
 	}
 }
