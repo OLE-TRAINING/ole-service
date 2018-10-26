@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import com.undefined.commons.exceptions.BadRequestException;
 import com.undefined.commons.exceptions.ConflitException;
+import com.undefined.commons.exceptions.NotFoundException;
 import com.undefined.commons.exceptions.UnauthorizedException;
 
 @ControllerAdvice
@@ -39,6 +40,12 @@ public class GlobalExceptionHandler {
 	public ResponseEntity<Object> handleUnauthorizations(UnauthorizedException ex) {
 		ErrorResponse error = buildErrorResponse(ex.getErrorResponse().getKey());
 		return new ResponseEntity<>(error, HttpStatus.UNAUTHORIZED);
+	}
+	
+	@ExceptionHandler(value = { NotFoundException.class })
+	public ResponseEntity<Object> handleResourcesNotFound(NotFoundException ex) {
+		ErrorResponse error = buildErrorResponse(ex.getErrorResponse().getKey());
+		return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
 	}
 	
 	@ExceptionHandler(value = { Exception.class })

@@ -1,4 +1,4 @@
-package com.undefined.model.utils;
+package com.undefined.commons.utils;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -17,7 +17,6 @@ public class PasswordModelatorTest {
 	public void testGetEncryptedPasswordTestTwo() {
 		assertThat(PasswordModelator.getEncryptedPassword("pass123")).isEqualTo("32250170a0dca92d53ec9624f336ca24");
 	}
-	
 	@Test
 	public void testGetEncryptedPasswordTestThree() {
 		assertThat(PasswordModelator.getEncryptedPassword("dojkd767")).isEqualTo("6d84e026ed87c40f105c9431494c5f0b");

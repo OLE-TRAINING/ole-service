@@ -3,7 +3,7 @@ package com.undefined.commons.exceptions;
 import com.undefined.commons.error.ErrorResponse;
 
 @SuppressWarnings("serial")
-public class InexistentEmailOnDatabaseException extends UnauthorizedException {
+public class InexistentEmailOnDatabaseException extends NotFoundException {
 
 	public InexistentEmailOnDatabaseException() {
 		

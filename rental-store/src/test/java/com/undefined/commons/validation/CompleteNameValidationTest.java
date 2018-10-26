@@ -1,4 +1,4 @@
-package com.undefined.model.validation;
+package com.undefined.commons.validation;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

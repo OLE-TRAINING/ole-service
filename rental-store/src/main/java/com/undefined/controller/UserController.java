@@ -22,7 +22,6 @@ import com.undefined.commons.exceptions.InvalidEmailException;
 import com.undefined.commons.exceptions.InvalidUserException;
 import com.undefined.commons.exceptions.NullFieldException;
 import com.undefined.commons.utils.UserModelator;
-import com.undefined.commons.validation.EmailValidator;
 import com.undefined.commons.validation.NullFieldValidator;
 import com.undefined.commons.validation.UserDataValidator;
 import com.undefined.commons.validation.UserValidator;
@@ -44,7 +43,7 @@ public class UserController {
 		if (StringUtils.isEmpty(email)) {
 			throw new NullFieldException(new ErrorResponse(ErrorMessage.Validation.NULL_OR_EMPTY_FIELD));
 		}
-		if (!EmailValidator.validateEmail(email)) {
+		if (!UserValidator.validateEmail(email)) {
 			throw new InvalidEmailException(new ErrorResponse(ErrorMessage.Validation.INVALID_EMAIL));
 		}
 		Optional<User> user = userService.findUserByEmail(email);
