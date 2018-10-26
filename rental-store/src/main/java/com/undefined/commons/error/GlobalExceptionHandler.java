@@ -9,7 +9,8 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import com.undefined.commons.exceptions.BadRequestException;
-import com.undefined.commons.exceptions.DuplicatedUserDataException;
+import com.undefined.commons.exceptions.ConflitException;
+import com.undefined.commons.exceptions.UnauthorizedException;
 
 @ControllerAdvice
 @PropertySource("classpath:error-messages.properties")
@@ -18,18 +19,26 @@ public class GlobalExceptionHandler {
 	@Autowired
 	private Environment env;
 	
+	private ErrorResponse buildErrorResponse(String key) {
+		return new ErrorResponse(key, env.getProperty(key));
+	}
+	
 	@ExceptionHandler(value = { BadRequestException.class })
 	public ResponseEntity<Object> handleBadRequests(BadRequestException ex) {
-		String message = env.getProperty(ex.getErrorResponse().getKey());
-		ErrorResponse error = new ErrorResponse(ex.getErrorResponse().getKey(), message);
+		ErrorResponse error = buildErrorResponse(ex.getErrorResponse().getKey());
 		return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
 	}
 	
-	@ExceptionHandler(value = { DuplicatedUserDataException.class })
-	public ResponseEntity<Object> handleDuplicatedData(DuplicatedUserDataException ex) {
-		String message = env.getProperty(ex.getErrorResponse().getKey());
-		ErrorResponse error = new ErrorResponse(ex.getErrorResponse().getKey(), message);
+	@ExceptionHandler(value = { ConflitException.class })
+	public ResponseEntity<Object> handleConflicts(ConflitException ex) {
+		ErrorResponse error = buildErrorResponse(ex.getErrorResponse().getKey());
 		return new ResponseEntity<>(error, HttpStatus.CONFLICT);
+	}
+	
+	@ExceptionHandler(value = { UnauthorizedException.class })
+	public ResponseEntity<Object> handleUnauthorizations(UnauthorizedException ex) {
+		ErrorResponse error = buildErrorResponse(ex.getErrorResponse().getKey());
+		return new ResponseEntity<>(error, HttpStatus.UNAUTHORIZED);
 	}
 	
 	@ExceptionHandler(value = { Exception.class })
