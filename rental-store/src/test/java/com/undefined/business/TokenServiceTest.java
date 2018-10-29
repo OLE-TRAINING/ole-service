@@ -8,9 +8,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.undefined.RentalStoreApplication;
 import com.undefined.model.entities.User;
@@ -18,6 +20,7 @@ import com.undefined.model.entities.User;
 @RunWith(SpringRunner.class)
 @ContextConfiguration(classes = {RentalStoreApplication.class, DataSourceAutoConfiguration.class})
 @TestPropertySource("classpath:application.properties")
+@Transactional
 public class TokenServiceTest {
 	
 	@Autowired
@@ -27,6 +30,7 @@ public class TokenServiceTest {
 	private UserService userService;
 	
 	@Test
+	@Rollback
 	public void testVinculateTokenToUser() {
 		String token = tokenService.generateToken();
 		tokenService.vinculateTokenToUser("bsmonteiro99@gmail.com", token);
