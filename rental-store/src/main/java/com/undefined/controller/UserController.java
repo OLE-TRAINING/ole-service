@@ -44,4 +44,11 @@ public class UserController {
 		UserRequestValidator.validatePasswordRequest(user.getPassword());
 		userService.authenticateUser(user);
 	}
+	
+	@PostMapping("users/confirm-data")
+	public void validateEmailAndUsername(@RequestBody User user) {
+		UserRequestValidator.validateEmailRequest(user.getEmail());
+		UserRequestValidator.validateUsernameRequest(user.getUsername());
+		userService.validateEmailAndUsername(user);
+	}
 }
