@@ -24,7 +24,7 @@ public class UserValidator {
 		return username.length() <= 15 && username.matches("[a-zA-Z0-9]+");
 	}
 	
-	private static boolean validatePassword(String password) {
+	public static boolean validatePassword(String password) {
 		return password.length() >= 6 && password.length() <= 10 && password.matches("^(?=.*[a-zA-Z])(?=.*[0-9])[a-zA-Z0-9]+$");
 	}
 	
