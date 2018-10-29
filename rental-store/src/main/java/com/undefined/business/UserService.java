@@ -19,6 +19,7 @@ import com.undefined.commons.utils.PasswordModelator;
 import com.undefined.commons.utils.RegistrationStatus;
 import com.undefined.commons.utils.UserModelator;
 import com.undefined.model.entities.User;
+import com.undefined.model.entities.UserPasswordChange;
 import com.undefined.model.repositories.UserRepository;
 
 @Service
@@ -80,6 +81,13 @@ public class UserService {
 		if (!isUsernameAssociatedToEmail(user.getEmail(), user.getUsername())) {
 			throw new IncorrectAssociationBetweenEmailAndUsernameException(new ErrorResponse(ErrorMessage.Unauthenticated.INCORRECT_USERNAME));
 		}
+	}
+	
+	public void changeUserPassword(UserPasswordChange user) {
+		if (!isTokenAssociatedToEmail(user.getEmail(), user.getConfirmationToken())) {
+			throw new IncorrectAssociationBetweenTokenAndEmailException(new ErrorResponse(ErrorMessage.Unauthenticated.INCORRECT_TOKEN));
+		}
+		userRepository.setPasswordByEmail(user.getNewPassword(), user.getEmail());
 	}
 	
 	public boolean isTokenAssociatedToEmail(String email, String token) {
