@@ -8,6 +8,7 @@ import com.undefined.commons.error.ErrorResponse;
 import com.undefined.commons.exceptions.InvalidEmailException;
 import com.undefined.commons.exceptions.InvalidPasswordException;
 import com.undefined.commons.exceptions.InvalidUserException;
+import com.undefined.commons.exceptions.InvalidUsernameException;
 import com.undefined.commons.exceptions.NullFieldException;
 import com.undefined.commons.validation.NullFieldValidator;
 import com.undefined.commons.validation.UserValidator;
@@ -36,6 +37,15 @@ public class UserRequestValidator {
 		}
 		if (!UserValidator.validatePassword(password)) {
 			throw new InvalidPasswordException(new ErrorResponse(ErrorMessage.Validation.INVALID_PASSWORD));
+		}
+	}
+	
+	public static void validateUsernameRequest(String username) {
+		if (StringUtils.isEmpty(username)) {
+			throw new NullFieldException(new ErrorResponse(ErrorMessage.Validation.NULL_OR_EMPTY_FIELD));
+		}
+		if (!UserValidator.validateUsername(username)) {
+			throw new InvalidUsernameException(new ErrorResponse(ErrorMessage.Validation.INVALID_USERNAME));
 		}
 	}
 	

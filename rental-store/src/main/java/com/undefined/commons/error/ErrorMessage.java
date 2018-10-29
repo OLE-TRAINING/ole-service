@@ -31,6 +31,7 @@ public class ErrorMessage {
 		
 		private Inexistent() {}
 		public static final String INEXISTENT_EMAIL = "error.inexistent.email";
+		public static final String INEXISTENT_USERNAME = "error.inexistent.username";
 	}
 	
 	public static class Unauthenticated {
@@ -38,5 +39,6 @@ public class ErrorMessage {
 		private Unauthenticated() {}
 		public static final String INCORRECT_TOKEN = "error.unauthorized.token";
 		public static final String INCORRECT_PASSWORD = "error.unauthorized.password";
+		public static final String INCORRECT_USERNAME = "error.unauthorized.username";
 	}
 }

@@ -11,8 +11,10 @@ import com.undefined.commons.error.ErrorResponse;
 import com.undefined.commons.exceptions.DuplicatedEmailException;
 import com.undefined.commons.exceptions.DuplicatedUsernameException;
 import com.undefined.commons.exceptions.IncorrectAssociationBetweenEmailAndPasswordException;
+import com.undefined.commons.exceptions.IncorrectAssociationBetweenEmailAndUsernameException;
 import com.undefined.commons.exceptions.IncorrectAssociationBetweenTokenAndEmailException;
 import com.undefined.commons.exceptions.InexistentEmailOnDatabaseException;
+import com.undefined.commons.exceptions.InexistentUsernameOnDatabaseException;
 import com.undefined.commons.utils.PasswordModelator;
 import com.undefined.commons.utils.RegistrationStatus;
 import com.undefined.commons.utils.UserModelator;
@@ -52,7 +54,7 @@ public class UserService {
 		if (!isEmailOnDatabase(email)) {
 			throw new InexistentEmailOnDatabaseException(new ErrorResponse(ErrorMessage.Inexistent.INEXISTENT_EMAIL));
 		}
-		if (!isTokenAssociatedToEmailCorrect(email, token)) {
+		if (!isTokenAssociatedToEmail(email, token)) {
 			throw new IncorrectAssociationBetweenTokenAndEmailException(new ErrorResponse(ErrorMessage.Unauthenticated.INCORRECT_TOKEN));
 		}
 		setUserAsRegistered(email);
@@ -63,17 +65,33 @@ public class UserService {
 			throw new InexistentEmailOnDatabaseException(new ErrorResponse(ErrorMessage.Inexistent.INEXISTENT_EMAIL));
 		}
 		String password = PasswordModelator.getEncryptedPassword(user.getPassword());
-		if (!isPasswordAssociatedToEmailCorrect(user.getEmail(), password)) {
+		if (!isPasswordAssociatedToEmail(user.getEmail(), password)) {
 			throw new IncorrectAssociationBetweenEmailAndPasswordException(new ErrorResponse(ErrorMessage.Unauthenticated.INCORRECT_PASSWORD));
 		}
 	}
 	
-	public boolean isTokenAssociatedToEmailCorrect(String email, String token) {
+	public void validateEmailAndUsername(User user) {
+		if (!isEmailOnDatabase(user.getEmail())) {
+			throw new InexistentEmailOnDatabaseException(new ErrorResponse(ErrorMessage.Inexistent.INEXISTENT_EMAIL));
+		}
+		if (!isUsernameOnDatabase(user.getUsername())) {
+			throw new InexistentUsernameOnDatabaseException(new ErrorResponse(ErrorMessage.Inexistent.INEXISTENT_USERNAME));
+		}
+		if (!isUsernameAssociatedToEmail(user.getEmail(), user.getUsername())) {
+			throw new IncorrectAssociationBetweenEmailAndUsernameException(new ErrorResponse(ErrorMessage.Unauthenticated.INCORRECT_USERNAME));
+		}
+	}
+	
+	public boolean isTokenAssociatedToEmail(String email, String token) {
 		return findUserByEmail(email).get().getConfirmationToken().equals(token);
 	}
 	
-	public boolean isPasswordAssociatedToEmailCorrect(String email, String password) {
+	public boolean isPasswordAssociatedToEmail(String email, String password) {
 		return findUserByEmail(email).get().getPassword().equals(password);
+	}
+	
+	public boolean isUsernameAssociatedToEmail(String email, String username) {
+		return findUserByEmail(email).get().getUsername().equals(username);
 	}
 	
 	public Optional<User> findUserByEmail(String email) {
