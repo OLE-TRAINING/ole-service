@@ -37,4 +37,11 @@ public class UserController {
 		TokenRequestValidator.validateConfirmationTokenRequest(token);
 		userService.registerUser(email, token);
 	}
+	
+	@PostMapping("users/validate")
+	public void authenticateUser(@RequestBody User user) {
+		UserRequestValidator.validateEmailRequest(user.getEmail());
+		UserRequestValidator.validatePasswordRequest(user.getPassword());
+		userService.authenticateUser(user);
+	}
 }

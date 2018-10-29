@@ -6,6 +6,7 @@ import org.springframework.util.StringUtils;
 import com.undefined.commons.error.ErrorMessage;
 import com.undefined.commons.error.ErrorResponse;
 import com.undefined.commons.exceptions.InvalidEmailException;
+import com.undefined.commons.exceptions.InvalidPasswordException;
 import com.undefined.commons.exceptions.InvalidUserException;
 import com.undefined.commons.exceptions.NullFieldException;
 import com.undefined.commons.validation.NullFieldValidator;
@@ -26,6 +27,15 @@ public class UserRequestValidator {
 		}
 		if (!UserValidator.validateEmail(email)) {
 			throw new InvalidEmailException(new ErrorResponse(ErrorMessage.Validation.INVALID_EMAIL));
+		}
+	}
+	
+	public static void validatePasswordRequest(String password) {
+		if (StringUtils.isEmpty(password)) {
+			throw new NullFieldException(new ErrorResponse(ErrorMessage.Validation.NULL_OR_EMPTY_FIELD));
+		}
+		if (!UserValidator.validatePassword(password)) {
+			throw new InvalidPasswordException(new ErrorResponse(ErrorMessage.Validation.INVALID_PASSWORD));
 		}
 	}
 	
