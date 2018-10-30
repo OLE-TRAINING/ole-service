@@ -33,7 +33,7 @@ public class UserService {
 	public User getUserThroughEmail(String email) {
 		Optional<User> user = findUserByEmail(email);
 		if (!user.isPresent()) {
-			return UserModelator.getUnexistingUser();	
+			return UserModelator.getInexistingUser();	
 		} else {
 			return user.get();
 		}
@@ -59,6 +59,7 @@ public class UserService {
 			throw new IncorrectAssociationBetweenTokenAndEmailException(new ErrorResponse(ErrorMessage.Unauthenticated.INCORRECT_TOKEN));
 		}
 		setUserAsRegistered(email);
+		tokenService.clearToken(email);
 	}
 	
 	public void authenticateUser(User user) {
@@ -83,11 +84,17 @@ public class UserService {
 		}
 	}
 	
+	@Transactional
 	public void changeUserPassword(UserPasswordChange user) {
+		if (!isEmailOnDatabase(user.getEmail())) {
+			throw new InexistentEmailOnDatabaseException(new ErrorResponse(ErrorMessage.Inexistent.INEXISTENT_EMAIL));
+		}
 		if (!isTokenAssociatedToEmail(user.getEmail(), user.getConfirmationToken())) {
 			throw new IncorrectAssociationBetweenTokenAndEmailException(new ErrorResponse(ErrorMessage.Unauthenticated.INCORRECT_TOKEN));
 		}
-		userRepository.setPasswordByEmail(user.getNewPassword(), user.getEmail());
+		user.setNewPassword(PasswordModelator.getEncryptedPassword(user.getNewPassword()));
+		changeUserPassword(user.getNewPassword(), user.getEmail());
+		tokenService.clearToken(user.getEmail());
 	}
 	
 	public boolean isTokenAssociatedToEmail(String email, String token) {
@@ -118,6 +125,11 @@ public class UserService {
 	@Transactional
 	public void setUserAsRegistered(String email) {
 		userRepository.setRegistrationStatusByEmail(RegistrationStatus.REGISTERED, email);
+	}
+	
+	@Transactional
+	public void changeUserPassword(String newPassword, String email) {
+		userRepository.setPasswordByEmail(newPassword, email);;
 	}
 	
 	public boolean isEmailOnDatabase(String email) {

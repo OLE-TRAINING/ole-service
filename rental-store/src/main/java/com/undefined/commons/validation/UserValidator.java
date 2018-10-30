@@ -52,10 +52,10 @@ public class UserValidator {
 		if (!validatePassword(user.getNewPassword())) {
 			return new ErrorResponse(ErrorMessage.Validation.INVALID_PASSWORD);
 		} 
-		if (TokenValidator.validateToken(user.getConfirmationToken())) {
+		if (!TokenValidator.validateToken(user.getConfirmationToken())) {
 			return new ErrorResponse(ErrorMessage.Validation.INVALID_TOKEN);
 		}
-		if (user.getNewPassword().equals(user.getNewPasswordConfirmation())) {
+		if (!user.getNewPassword().equals(user.getNewPasswordConfirmation())) {
 			return new ErrorResponse(ErrorMessage.Validation.PASSWORDS_MISMATCH);
 		}
 		return null;

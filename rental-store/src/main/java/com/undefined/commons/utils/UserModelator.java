@@ -6,7 +6,7 @@ public class UserModelator {
 
 	private UserModelator() {}
 	
-	public static User getUnexistingUser() {
+	public static User getInexistingUser() {
 		User user = new User();
 		user.setRegistrationStatus(RegistrationStatus.INEXISTENT);
 		return user;

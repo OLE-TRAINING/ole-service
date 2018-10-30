@@ -34,6 +34,11 @@ public class TokenService {
 		userRepository.setConfirmationTokenByEmail(token, destinatary);
 	}
 	
+	@Transactional
+	public void clearToken(String email) {
+		userRepository.setConfirmationTokenNullByEmail(email);
+	}
+	
 	public void sendTokenToEmail(String destinatary, String token, String subject) {
 		SimpleMailMessage mailMessage = new SimpleMailMessage();
 		mailMessage.setText(String.format(template, token));
