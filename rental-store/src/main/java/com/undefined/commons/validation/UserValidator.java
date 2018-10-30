@@ -5,6 +5,7 @@ import java.util.regex.Pattern;
 import com.undefined.commons.error.ErrorMessage;
 import com.undefined.commons.error.ErrorResponse;
 import com.undefined.model.entities.User;
+import com.undefined.model.entities.UserPasswordChange;
 
 public class UserValidator {
 
@@ -31,14 +32,32 @@ public class UserValidator {
 	public static ErrorResponse validateUser(User user) {
 		if (!validateEmail(user.getEmail())) {
 			return new ErrorResponse(ErrorMessage.Validation.INVALID_EMAIL);
-		} else if (!validateName(user.getCompleteName())) {
+		} 
+		if (!validateName(user.getCompleteName())) {
 			return new ErrorResponse(ErrorMessage.Validation.INVALID_COMPLETE_NAME);
-		} else if (!validateUsername(user.getUsername())) {
+		} 
+		if (!validateUsername(user.getUsername())) {
 			return new ErrorResponse(ErrorMessage.Validation.INVALID_USERNAME);
-		} else if (!validatePassword(user.getPassword())) {
+		} 
+		if (!validatePassword(user.getPassword())) {
 			return new ErrorResponse(ErrorMessage.Validation.INVALID_PASSWORD);
-		} else {
-			return null;
 		}
+		return null;
+	}
+	
+	public static ErrorResponse validateUserPasswordChange(UserPasswordChange user) {
+		if (!validateEmail(user.getEmail())) {
+			return new ErrorResponse(ErrorMessage.Validation.INVALID_EMAIL);
+		}
+		if (!validatePassword(user.getNewPassword())) {
+			return new ErrorResponse(ErrorMessage.Validation.INVALID_PASSWORD);
+		} 
+		if (!TokenValidator.validateToken(user.getConfirmationToken())) {
+			return new ErrorResponse(ErrorMessage.Validation.INVALID_TOKEN);
+		}
+		if (!user.getNewPassword().equals(user.getNewPasswordConfirmation())) {
+			return new ErrorResponse(ErrorMessage.Validation.PASSWORDS_MISMATCH);
+		}
+		return null;
 	}
 }

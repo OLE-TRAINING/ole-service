@@ -17,6 +17,8 @@ public class ErrorMessage {
 		public static final String INVALID_TOKEN = "error.invalid.token";
 		
 		public static final String NULL_OR_EMPTY_FIELD = "error.invalid.empty";
+		
+		public static final String PASSWORDS_MISMATCH = "error.invalid.password.mismatch";
 	}
 	
 	public static class Resource {

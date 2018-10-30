@@ -13,6 +13,7 @@ import com.undefined.commons.exceptions.NullFieldException;
 import com.undefined.commons.validation.NullFieldValidator;
 import com.undefined.commons.validation.UserValidator;
 import com.undefined.model.entities.User;
+import com.undefined.model.entities.UserPasswordChange;
 
 public class UserRequestValidator {
 	
@@ -46,6 +47,18 @@ public class UserRequestValidator {
 		}
 		if (!UserValidator.validateUsername(username)) {
 			throw new InvalidUsernameException(new ErrorResponse(ErrorMessage.Validation.INVALID_USERNAME));
+		}
+	}
+	
+	public static void validateUserPasswordChangeRequest(UserPasswordChange user) {
+		try {
+			NullFieldValidator.checkForNullFields(user);
+		} catch (IllegalAccessException e) {
+			logger.error(e.getMessage());
+		}
+		ErrorResponse error = UserValidator.validateUserPasswordChange(user);
+		if (error != null) {
+			throw new InvalidUserException(error);
 		}
 	}
 	
