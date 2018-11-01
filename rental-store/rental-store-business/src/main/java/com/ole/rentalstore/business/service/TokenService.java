@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.ole.rentalstore.commons.error.ErrorMessage;
 import com.ole.rentalstore.commons.error.ErrorResponse;
 import com.ole.rentalstore.commons.exceptions.not_found.InexistentEmailOnDatabaseException;
+import com.ole.rentalstore.commons.utils.UserModelator;
 import com.ole.rentalstore.model.repositories.UserRepository;
 
 @Service
@@ -49,11 +50,12 @@ public class TokenService {
 	
 	@Transactional
 	public void processToken(String email) {
-		if (!userService.isEmailOnDatabase(email)) {
+		String emailCaseIgnored = UserModelator.getStringIgnoringCase(email);
+		if (!userService.isEmailOnDatabase(emailCaseIgnored)) {
 			throw new InexistentEmailOnDatabaseException(new ErrorResponse(ErrorMessage.Inexistent.INEXISTENT_EMAIL));
 		}
 		String token = generateToken();
-		vinculateTokenToUser(email, token);
-		sendTokenToEmail(email, token, "Cadastro de usuário");
+		vinculateTokenToUser(emailCaseIgnored, token);
+		sendTokenToEmail(emailCaseIgnored, token, "Cadastro de usuário");
 	}
 }
