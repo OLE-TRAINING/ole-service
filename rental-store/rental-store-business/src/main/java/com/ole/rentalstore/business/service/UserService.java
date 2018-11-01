@@ -35,14 +35,16 @@ public class UserService {
 	private UserMapper userMapper;
 	
 	public UserDTO getUserThroughEmail(String email) {
-		if (!isEmailOnDatabase(email)) {
+		String emailCaseIgnored = UserModelator.getStringIgnoringCase(email);
+		if (!isEmailOnDatabase(emailCaseIgnored)) {
 			return UserModelator.getInexistingUser();	
 		} else {
-			return userMapper.userToUserDTO(findUserByEmail(email).get());
+			return userMapper.userToUserDTO(findUserByEmail(emailCaseIgnored).get());
 		}
 	}
 	
 	public void createUser(UserDTO user) {
+		user.setEmail(UserModelator.getStringIgnoringCase(user.getEmail()));
 		if (isEmailOnDatabase(user.getEmail())) {
 			throw new DuplicatedEmailException(new ErrorResponse(ErrorMessage.Resource.DUPLICATED_EMAIL));
 		}
@@ -55,17 +57,19 @@ public class UserService {
 	
 	@Transactional
 	public void registerUser(String email, String token) {
-		if (!isEmailOnDatabase(email)) {
+		String emailCaseIgnored = UserModelator.getStringIgnoringCase(email);
+		if (!isEmailOnDatabase(emailCaseIgnored)) {
 			throw new InexistentEmailOnDatabaseException(new ErrorResponse(ErrorMessage.Inexistent.INEXISTENT_EMAIL));
 		}
-		if (!isTokenAssociatedToEmail(email, token)) {
+		if (!isTokenAssociatedToEmail(emailCaseIgnored, token)) {
 			throw new IncorrectAssociationBetweenTokenAndEmailException(new ErrorResponse(ErrorMessage.Unauthenticated.INCORRECT_TOKEN));
 		}
-		setUserAsRegistered(email);
-		tokenService.clearToken(email);
+		setUserAsRegistered(emailCaseIgnored);
+		tokenService.clearToken(emailCaseIgnored);
 	}
 	
 	public void authenticateUser(UserDTO user) {
+		user.setEmail(UserModelator.getStringIgnoringCase(user.getEmail()));
 		if (!isEmailOnDatabase(user.getEmail())) {
 			throw new InexistentEmailOnDatabaseException(new ErrorResponse(ErrorMessage.Inexistent.INEXISTENT_EMAIL));
 		}
@@ -76,6 +80,7 @@ public class UserService {
 	}
 	
 	public void validateEmailAndUsername(UserDTO user) {
+		user.setEmail(UserModelator.getStringIgnoringCase(user.getEmail()));
 		if (!isEmailOnDatabase(user.getEmail())) {
 			throw new InexistentEmailOnDatabaseException(new ErrorResponse(ErrorMessage.Inexistent.INEXISTENT_EMAIL));
 		}
@@ -89,6 +94,7 @@ public class UserService {
 	
 	@Transactional
 	public void changeUserPassword(UserForPasswordChangeDTO user) {
+		user.setEmail(UserModelator.getStringIgnoringCase(user.getEmail()));
 		if (!isEmailOnDatabase(user.getEmail())) {
 			throw new InexistentEmailOnDatabaseException(new ErrorResponse(ErrorMessage.Inexistent.INEXISTENT_EMAIL));
 		}
