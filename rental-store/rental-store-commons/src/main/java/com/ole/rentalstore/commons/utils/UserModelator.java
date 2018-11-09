@@ -12,7 +12,7 @@ private UserModelator() {}
 		return user;
 	}
 	
-	public static String getStringIgnoringCase(String str) {
+	public static String getStringLowerCase(String str) {
 		return str.toLowerCase();
 	}
 }

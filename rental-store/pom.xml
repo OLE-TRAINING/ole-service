@@ -12,6 +12,7 @@
 		<module>rental-store-model</module>
 		<module>rental-store-business</module>
 		<module>rental-store-ws</module>
+		<module>rental-store-httpclient</module>
 	</modules>
 
 	<properties>
@@ -41,6 +42,12 @@
 			<dependency>
 				<groupId>rental-store</groupId>
 				<artifactId>rental-store-model</artifactId>
+				<version>0.0.1-SNAPSHOT</version>
+			</dependency>
+			
+			<dependency>
+				<groupId>rental-store</groupId>
+				<artifactId>rental-store-httpclient</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 
