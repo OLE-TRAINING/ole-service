@@ -50,7 +50,7 @@ public class TokenService {
 	
 	@Transactional
 	public void processToken(String email) {
-		String emailCaseIgnored = UserModelator.getStringIgnoringCase(email);
+		String emailCaseIgnored = UserModelator.getStringLowerCase(email);
 		if (!userService.isEmailOnDatabase(emailCaseIgnored)) {
 			throw new InexistentEmailOnDatabaseException(new ErrorResponse(ErrorMessage.Inexistent.INEXISTENT_EMAIL));
 		}

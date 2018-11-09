@@ -29,6 +29,11 @@
 			<groupId>rental-store</groupId>
 			<artifactId>rental-store-commons</artifactId>
 		</dependency>
+		
+		<dependency>
+			<groupId>rental-store</groupId>
+			<artifactId>rental-store-httpclient</artifactId>
+		</dependency>
 
 		<dependency>
 			<groupId>rental-store</groupId>
