@@ -2,7 +2,7 @@ package com.ole.rentalstore.commons.error;
 
 public class ErrorMessage {
 
-private ErrorMessage () {}
+	private ErrorMessage () {}
 	
 	public static final String UNEXPECTED_ERROR = "error.unexpected";
 	

@@ -1,8 +1,11 @@
 package com.ole.rentalstore.commons.dto.tmdb_api;
 
-import java.util.ArrayList;
+import java.math.BigDecimal;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class MovieDTO {
 
 	private Integer id;
@@ -11,11 +14,11 @@ public class MovieDTO {
 	private Double voteAverage;
 	private String title;
 	private Integer year;
-	private List<String> genreNames = new ArrayList<>();
-	private Integer runtime;
+	private List<String> genreNames;
+	private String runtime;
 	private String overview;
 	private boolean favorit;
-	private Double price;
+	private BigDecimal price;
 	private boolean acquired;
 
 	public Integer getId() {
@@ -74,11 +77,11 @@ public class MovieDTO {
 		this.genreNames = genreNames;
 	}
 
-	public Integer getRuntime() {
+	public String getRuntime() {
 		return runtime;
 	}
 
-	public void setRuntime(Integer runtime) {
+	public void setRuntime(String runtime) {
 		this.runtime = runtime;
 	}
 
@@ -98,11 +101,11 @@ public class MovieDTO {
 		this.favorit = favorit;
 	}
 
-	public Double getPrice() {
+	public BigDecimal getPrice() {
 		return price;
 	}
 
-	public void setPrice(Double price) {
+	public void setPrice(BigDecimal price) {
 		this.price = price;
 	}
 
@@ -112,5 +115,36 @@ public class MovieDTO {
 
 	public void setAcquired(boolean acquired) {
 		this.acquired = acquired;
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("MovieDTO [id=");
+		builder.append(id);
+		builder.append(", posterId=");
+		builder.append(posterId);
+		builder.append(", bannerId=");
+		builder.append(bannerId);
+		builder.append(", voteAverage=");
+		builder.append(voteAverage);
+		builder.append(", title=");
+		builder.append(title);
+		builder.append(", year=");
+		builder.append(year);
+		builder.append(", genreNames=");
+		builder.append(genreNames);
+		builder.append(", runtime=");
+		builder.append(runtime);
+		builder.append(", overview=");
+		builder.append(overview);
+		builder.append(", favorit=");
+		builder.append(favorit);
+		builder.append(", price=");
+		builder.append(price);
+		builder.append(", acquired=");
+		builder.append(acquired);
+		builder.append("]");
+		return builder.toString();
 	}
 }
