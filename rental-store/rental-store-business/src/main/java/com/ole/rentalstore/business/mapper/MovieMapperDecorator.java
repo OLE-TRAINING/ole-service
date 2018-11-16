@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
@@ -37,11 +38,13 @@ public abstract class MovieMapperDecorator implements MovieMapper {
 	@Override
 	public MovieDTO MovieExtractedFromMoviesByGenreServiceDTOToMovieDTO(MovieExtractedFromMoviesByGenreServiceDTO movie, List<GenreDTO> genreList) {
 		MovieDTO dto = delegate.MovieExtractedFromMoviesByGenreServiceDTOToMovieDTO(movie, genreList);
-		dto.setYear(LocalDate.parse(movie.getReleaseDate()).getYear());
-		if (dto.getPosterId() != null) {
+		if (!StringUtils.isEmpty(movie.getReleaseDate())) {
+			dto.setYear(LocalDate.parse(movie.getReleaseDate()).getYear());
+		}
+		if (!StringUtils.isEmpty(dto.getPosterId())) {
 			dto.setPosterId(filterImageId(movie.getPosterId()));
 		}
-		if (dto.getBannerId() != null) {
+		if (!StringUtils.isEmpty(dto.getBannerId())) {
 			dto.setBannerId(filterImageId(movie.getBannerId()));
 		}
 		dto.setGenreNames(parseGenreIdToGenreNames(movie.getGenreIds(), genreList));

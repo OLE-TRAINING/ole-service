@@ -24,7 +24,8 @@ public class GenreController {
 
 	@GetMapping("genres/{id}/movies")
 	public ResponseEntity<MovieResponseDTO> getMoviesByGenre(@PathVariable("id") Integer id,
-			@RequestParam("amount") Integer amount, @RequestParam("page") Integer page) {
-		return ResponseEntity.ok(genreService.getMoviesByGenre(id));
+															 @RequestParam("amount") Integer amount, 
+															 @RequestParam("page") Integer page) {
+		return ResponseEntity.ok(genreService.getMoviesByGenre(id, page, amount));
 	}
 }

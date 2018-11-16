@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ole.rentalstore.business.mapper.MovieMapper;
+import com.ole.rentalstore.business.service.pagehandler.PageHandler;
+import com.ole.rentalstore.business.service.pagehandler.PageHandlerBuilder;
 import com.ole.rentalstore.commons.dto.tmdb_api.GenreDTO;
 import com.ole.rentalstore.commons.dto.tmdb_api.GenreResponseDTO;
 import com.ole.rentalstore.commons.dto.tmdb_api.MovieDTO;
@@ -20,6 +22,7 @@ public class GenreService {
 
 	@Autowired
 	private MovieMapper movieMapper;
+	private PageHandler pageHandler = PageHandlerBuilder.buildChain();
 
 	public GenreResponseDTO getMovieGenres() {
 		GenreResponseDTO genres = GenreRequests.getGenresList();
@@ -45,15 +48,15 @@ public class GenreService {
 		return false;
 	}
 
-	public MovieResponseDTO getMoviesByGenre(Integer id) {
+	public MovieResponseDTO getMoviesByGenre(Integer id, Integer page, Integer amount) {
 		List<GenreDTO> genres = getMovieGenres().getGenres();
 		if (!genreExists(id, genres)) {
 			throw new GenreNotFoundException("Genre " + id + " does not exist");
 		}
-		MovieAsTmdbResponseDTO movieTmdbResponse = GenreRequests.getMoviesListByGenre(id);
+		MovieAsTmdbResponseDTO movieTmdbResponse = pageHandler.handlePage(id, page, amount);
 		MovieResponseDTO movieResponse = movieMapper.MovieAsTmdbResponseDTOToMovieResponseDTO(movieTmdbResponse, genres, movieMapper);
-		
 		setRandomFields(movieResponse.getResults());
+		movieResponse.setPage(page);
 		return movieResponse;
 	}
 }

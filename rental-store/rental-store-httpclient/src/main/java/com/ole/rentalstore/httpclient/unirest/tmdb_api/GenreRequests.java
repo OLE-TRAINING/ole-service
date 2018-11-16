@@ -36,13 +36,13 @@ public class GenreRequests extends RequestCommonResources {
 		return genreResponse;
 	}
 	
-	public static MovieAsTmdbResponseDTO getMoviesListByGenre(Integer id) {
+	public static MovieAsTmdbResponseDTO getMoviesListByGenre(Integer id, Integer page) {
 		MovieAsTmdbResponseDTO movieTmdbRespons = null;
 		HttpResponse<MovieAsTmdbResponseDTO> httpResponse = null;
 		// if the genre is latest releases, set year to current year and sort by popularity
 		String genre = id == -1? "&primary_release_year=2018&sort_by=popularity.desc" : "&with_genres=" + id;
 		try {
-			httpResponse = Unirest.get(BASE_URL + MOVIE_LIST_BY_GENRE_URL + API_KEY + LANGUAGE + ADULT + genre).asObject(MovieAsTmdbResponseDTO.class);
+			httpResponse = Unirest.get(BASE_URL + MOVIE_LIST_BY_GENRE_URL + API_KEY + LANGUAGE + ADULT + genre + "&page=" + page).asObject(MovieAsTmdbResponseDTO.class);
 		} catch(UnirestException e) {
 			LOGGER.error(e.getMessage());
 			throw new HttpClientException(e.getMessage());
