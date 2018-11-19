@@ -12,6 +12,7 @@ public class MovieDTO {
 	private String posterId;
 	private String bannerId;
 	private Double voteAverage;
+	private Double voteCount;
 	private String title;
 	private Integer year;
 	private List<String> genreNames;
@@ -115,6 +116,14 @@ public class MovieDTO {
 
 	public void setAcquired(boolean acquired) {
 		this.acquired = acquired;
+	}
+
+	public Double getVoteCount() {
+		return voteCount;
+	}
+
+	public void setVoteCount(Double voteCount) {
+		this.voteCount = voteCount;
 	}
 
 	@Override
