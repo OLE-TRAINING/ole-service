@@ -1,26 +1,36 @@
-package com.ole.rentalstore.commons.dto.tmdb_api;
+package com.ole.rentalstore.httpclient.unirest.tmdb_api.util;
 
-import java.math.BigDecimal;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class MovieDTO {
+public class MovieExtractedFromMoviesByGenreServiceDTO {
 
 	private Integer id;
+	@JsonAlias({ "poster_path" })
 	private String posterId;
+	@JsonAlias({ "backdrop_path" })
 	private String bannerId;
+	@JsonAlias({ "vote_average" })
 	private Double voteAverage;
+	@JsonAlias({ "vote_count" })
 	private Integer voteCount;
 	private String title;
-	private Integer year;
-	private List<String> genreNames;
-	private String runtime;
+	@JsonAlias({ "release_date" })
+	private String releaseDate;
+	@JsonAlias({ "genre_ids" })
+	private List<Integer> genreIds;
 	private String overview;
-	private boolean favorit;
-	private BigDecimal price;
-	private boolean acquired;
+
+	public String getOverview() {
+		return overview;
+	}
+
+	public void setOverview(String overview) {
+		this.overview = overview;
+	}
 
 	public Integer getId() {
 		return id;
@@ -62,62 +72,22 @@ public class MovieDTO {
 		this.title = title;
 	}
 
-	public Integer getYear() {
-		return year;
+	public String getReleaseDate() {
+		return releaseDate;
 	}
 
-	public void setYear(Integer year) {
-		this.year = year;
+	public void setReleaseDate(String releaseDate) {
+		this.releaseDate = releaseDate;
 	}
 
-	public List<String> getGenreNames() {
-		return genreNames;
+	public List<Integer> getGenreIds() {
+		return genreIds;
 	}
 
-	public void setGenreNames(List<String> genreNames) {
-		this.genreNames = genreNames;
+	public void setGenreIds(List<Integer> genreIds) {
+		this.genreIds = genreIds;
 	}
-
-	public String getRuntime() {
-		return runtime;
-	}
-
-	public void setRuntime(String runtime) {
-		this.runtime = runtime;
-	}
-
-	public String getOverview() {
-		return overview;
-	}
-
-	public void setOverview(String overview) {
-		this.overview = overview;
-	}
-
-	public boolean isFavorit() {
-		return favorit;
-	}
-
-	public void setFavorit(boolean favorit) {
-		this.favorit = favorit;
-	}
-
-	public BigDecimal getPrice() {
-		return price;
-	}
-
-	public void setPrice(BigDecimal price) {
-		this.price = price;
-	}
-
-	public boolean isAcquired() {
-		return acquired;
-	}
-
-	public void setAcquired(boolean acquired) {
-		this.acquired = acquired;
-	}
-
+	
 	public Integer getVoteCount() {
 		return voteCount;
 	}
@@ -129,7 +99,7 @@ public class MovieDTO {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("MovieDTO [id=");
+		builder.append("MovieExtractedFromMoviesByGenreServiceDTO [id=");
 		builder.append(id);
 		builder.append(", posterId=");
 		builder.append(posterId);
@@ -139,20 +109,12 @@ public class MovieDTO {
 		builder.append(voteAverage);
 		builder.append(", title=");
 		builder.append(title);
-		builder.append(", year=");
-		builder.append(year);
-		builder.append(", genreNames=");
-		builder.append(genreNames);
-		builder.append(", runtime=");
-		builder.append(runtime);
+		builder.append(", releaseDate=");
+		builder.append(releaseDate);
+		builder.append(", genreIds=");
+		builder.append(genreIds);
 		builder.append(", overview=");
 		builder.append(overview);
-		builder.append(", favorit=");
-		builder.append(favorit);
-		builder.append(", price=");
-		builder.append(price);
-		builder.append(", acquired=");
-		builder.append(acquired);
 		builder.append("]");
 		return builder.toString();
 	}
