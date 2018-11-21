@@ -16,7 +16,7 @@ public class MovieExtractedFromMoviesByGenreServiceDTO {
 	@JsonAlias({ "vote_average" })
 	private Double voteAverage;
 	@JsonAlias({ "vote_count" })
-	private Double voteCount;
+	private Integer voteCount;
 	private String title;
 	@JsonAlias({ "release_date" })
 	private String releaseDate;
@@ -88,11 +88,11 @@ public class MovieExtractedFromMoviesByGenreServiceDTO {
 		this.genreIds = genreIds;
 	}
 	
-	public Double getVoteCount() {
+	public Integer getVoteCount() {
 		return voteCount;
 	}
 
-	public void setVoteCount(Double voteCount) {
+	public void setVoteCount(Integer voteCount) {
 		this.voteCount = voteCount;
 	}
 
