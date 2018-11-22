@@ -56,6 +56,6 @@ public class TokenService {
 		}
 		String token = generateToken();
 		vinculateTokenToUser(emailCaseIgnored, token);
-		sendTokenToEmail(emailCaseIgnored, token, "Confirmar operação");
+		sendTokenToEmail(emailCaseIgnored, token, "Confirmar Operação");
 	}
 }
