@@ -26,6 +26,6 @@ public class GenreController {
 	public ResponseEntity<MovieResponseDTO> getMoviesByGenre(@PathVariable("id") Integer id,
 															 @RequestParam("amount") Integer amount, 
 															 @RequestParam("page") Integer page) {
-		return ResponseEntity.ok(genreService.getMoviesByGenre(id, page, amount));
+		return ResponseEntity.ok(genreService.getMovies(id, page, amount, filter));
 	}
 }

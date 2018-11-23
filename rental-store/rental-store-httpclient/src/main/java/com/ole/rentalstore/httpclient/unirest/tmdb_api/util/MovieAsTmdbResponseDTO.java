@@ -12,13 +12,13 @@ public class MovieAsTmdbResponseDTO {
 	private Integer totalMovies;
 	@JsonAlias({ "total_pages" })
 	private Integer totalPages;
-	private List<MovieExtractedFromMoviesByGenreServiceDTO> results;
+	private List<MovieAsExtractedFromTmdbDTO> results;
 
-	public List<MovieExtractedFromMoviesByGenreServiceDTO> getResults() {
+	public List<MovieAsExtractedFromTmdbDTO> getResults() {
 		return results;
 	}
 
-	public void setResults(List<MovieExtractedFromMoviesByGenreServiceDTO> movies) {
+	public void setResults(List<MovieAsExtractedFromTmdbDTO> movies) {
 		this.results = movies;
 	}
 

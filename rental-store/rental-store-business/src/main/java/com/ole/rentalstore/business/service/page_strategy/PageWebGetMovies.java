@@ -1,8 +1,8 @@
-package com.ole.rentalstore.business.service.pagehandler;
+package com.ole.rentalstore.business.service.page_strategy;
 
 import java.util.List;
 
-public class PageWebGetMovies implements PageHandler {
+public class PageWebGetMovies implements PageStrategy {
 
 	@Override
 	public Integer getAppropriatePage(Integer page) {
@@ -15,7 +15,7 @@ public class PageWebGetMovies implements PageHandler {
 	}
 
 	@Override
-	public Integer getTotalPages(Integer currentTotalPages) {
-		return currentTotalPages;
+	public Integer getTotalPages(Integer totalMovies, Integer amount) {
+		return totalMovies / amount;
 	}
 }

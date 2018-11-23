@@ -1,9 +1,9 @@
-package com.ole.rentalstore.business.service.pagehandler;
+package com.ole.rentalstore.business.service.page_strategy;
 
 import java.util.Collections;
 import java.util.List;
 
-public class PageHelper {
+public class PageUtils {
 
 	public static <T> List<T> getAppropriatedSubList(List<T> list, int from, int to) { 
 		try {
