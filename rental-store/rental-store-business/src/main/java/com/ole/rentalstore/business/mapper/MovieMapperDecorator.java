@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 
 import com.ole.rentalstore.commons.dto.tmdb_api.GenreDTO;
 import com.ole.rentalstore.commons.dto.tmdb_api.MovieDTO;
-import com.ole.rentalstore.httpclient.unirest.tmdb_api.util.MovieExtractedFromMoviesByGenreServiceDTO;
+import com.ole.rentalstore.httpclient.unirest.tmdb_api.util.MovieAsExtractedFromTmdbDTO;
 
 public abstract class MovieMapperDecorator implements MovieMapper {
 
@@ -36,7 +36,7 @@ public abstract class MovieMapperDecorator implements MovieMapper {
 	}
 	
 	@Override
-	public MovieDTO MovieExtractedFromMoviesByGenreServiceDTOToMovieDTO(MovieExtractedFromMoviesByGenreServiceDTO movie, List<GenreDTO> genreList) {
+	public MovieDTO MovieExtractedFromMoviesByGenreServiceDTOToMovieDTO(MovieAsExtractedFromTmdbDTO movie, List<GenreDTO> genreList) {
 		MovieDTO dto = delegate.MovieExtractedFromMoviesByGenreServiceDTOToMovieDTO(movie, genreList);
 		if (!StringUtils.isEmpty(movie.getReleaseDate())) {
 			dto.setYear(LocalDate.parse(movie.getReleaseDate()).getYear());
