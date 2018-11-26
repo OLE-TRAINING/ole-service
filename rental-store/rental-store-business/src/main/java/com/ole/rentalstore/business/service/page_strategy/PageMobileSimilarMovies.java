@@ -13,9 +13,4 @@ public class PageMobileSimilarMovies implements PageStrategy {
 	public <T> List<T> formatResponseList(List<T> list, Integer page) {
 		return null;
 	}
-
-	@Override
-	public Integer getTotalPages(Integer totalMovies, Integer amount) {
-		return null;
-	}
 }
