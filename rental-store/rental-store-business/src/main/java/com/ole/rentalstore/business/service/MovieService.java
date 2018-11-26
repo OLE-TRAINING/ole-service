@@ -39,9 +39,10 @@ public class MovieService {
 		return false;
 	}
 	
-	public <T> MovieResponseDTO getMovies(T id, Integer page, Integer amount, String filter) {
+	public MovieResponseDTO getMovies(String id, Integer page, Integer amount, String filter) {
 		List<GenreDTO> genres = genreService.getMovieGenres().getGenres();
 		MovieAsTmdbResponseDTO movieTmdbResponse = PageProcessor.getMoviesThreatingPagination(id, amount, page, filter);
+		
 		MovieResponseDTO movieResponse = movieMapper.MovieAsTmdbResponseDTOToMovieResponseDTO(movieTmdbResponse, genres);
 		setRandomFields(movieResponse.getResults());
 		movieResponse.setPage(page);

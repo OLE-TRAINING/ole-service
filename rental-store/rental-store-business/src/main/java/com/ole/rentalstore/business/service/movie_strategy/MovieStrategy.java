@@ -4,5 +4,5 @@ import com.ole.rentalstore.httpclient.unirest.tmdb_api.util.MovieAsTmdbResponseD
 
 public interface MovieStrategy {
 
-	<T> MovieAsTmdbResponseDTO getMovies(T id, Integer page);
+	MovieAsTmdbResponseDTO getMovies(String id, Integer page);
 }

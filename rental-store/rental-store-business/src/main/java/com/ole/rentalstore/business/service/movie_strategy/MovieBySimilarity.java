@@ -5,7 +5,7 @@ import com.ole.rentalstore.httpclient.unirest.tmdb_api.util.MovieAsTmdbResponseD
 public class MovieBySimilarity implements MovieStrategy {
 
 	@Override
-	public <T> MovieAsTmdbResponseDTO getMovies(T id, Integer page) {
+	public MovieAsTmdbResponseDTO getMovies(String id, Integer page) {
 		return null;
 	}
 }
