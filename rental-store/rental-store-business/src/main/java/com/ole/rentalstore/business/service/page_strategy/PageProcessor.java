@@ -17,7 +17,7 @@ public class PageProcessor {
 		MovieStrategy movieStrategy = MovieStrategyFactory.getMovieStrategyByFilter(filter);
 		MovieAsTmdbResponseDTO movieTmdbResponse = movieStrategy.getMovies(id, appropriatePage);
 		
-		movieTmdbResponse.setResults(pageStrategy.formatResponseList(movieTmdbResponse.getResults(), appropriatePage));
+		movieTmdbResponse.setResults(pageStrategy.formatResponseList(movieTmdbResponse.getResults(), page));
 		movieTmdbResponse.setTotalPages(pageStrategy.getTotalPages(movieTmdbResponse.getTotalMovies(), amount));
 		
 		return movieTmdbResponse;
