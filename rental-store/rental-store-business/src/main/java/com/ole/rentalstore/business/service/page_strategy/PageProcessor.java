@@ -10,13 +10,16 @@ public class PageProcessor {
 		
 	}
 	
-	public static <T> MovieAsTmdbResponseDTO getMoviesThreatingPagination(T id, Integer amount, Integer page, String filter) {
+	public static MovieAsTmdbResponseDTO getMoviesThreatingPagination(String id, Integer amount, Integer page, String filter) {
 		PageStrategy pageStrategy = PageStrategyFactory.getPageStrategyByAmount(amount);
 		Integer appropriatePage = pageStrategy.getAppropriatePage(page);
+		
 		MovieStrategy movieStrategy = MovieStrategyFactory.getMovieStrategyByFilter(filter);
 		MovieAsTmdbResponseDTO movieTmdbResponse = movieStrategy.getMovies(id, appropriatePage);
-		movieTmdbResponse.setResults(pageStrategy.formatResponseList(movieTmdbResponse.getResults(), appropriatePage));
+		
+		movieTmdbResponse.setResults(pageStrategy.formatResponseList(movieTmdbResponse.getResults(), page));
 		movieTmdbResponse.setTotalPages(pageStrategy.getTotalPages(movieTmdbResponse.getTotalMovies(), amount));
+		
 		return movieTmdbResponse;
 	}
 }
