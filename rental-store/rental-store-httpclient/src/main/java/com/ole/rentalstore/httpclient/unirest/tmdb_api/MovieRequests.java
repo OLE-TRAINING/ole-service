@@ -9,7 +9,7 @@ public class MovieRequests extends TmdbCommonResources {
 	private static final Logger LOGGER = Logger.getLogger(GenreRequests.class);
 	private static final String MOVIE_LIST_BY_GENRE_URL = "/discover/movie";
 	private static final String MOVIE_LIST_BY_SIMILARITY_URL = "/discover/movie";
-	private static final String MOVIE_LIST_BY_NAME_URL = "/discover/movie";
+	private static final String MOVIE_LIST_BY_NAME_URL = "/search/movie";
 	
 	private MovieRequests() {
 

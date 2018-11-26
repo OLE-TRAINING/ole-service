@@ -15,7 +15,7 @@ public abstract class TmdbCommonResources extends UnirestCommonResources{
 	protected static final String BASE_URL = "https://api.themoviedb.org/3";
 	protected static final String API_KEY = "?api_key=d272326e467344029e68e3c4ff0b4059";
 	protected static final String LANGUAGE = "&language=pt-BR";
-	protected static final String ADULT = "&adult=true";
+	protected static final String ADULT = "&include_adult=true";
 	
 	protected static ErrorHandler errorHandler = ErrorHandlerBuilder.buildErrorHandler();
 	
