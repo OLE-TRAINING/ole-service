@@ -36,8 +36,8 @@ public abstract class MovieMapperDecorator implements MovieMapper {
 	}
 	
 	@Override
-	public MovieDTO MovieExtractedFromMoviesByGenreServiceDTOToMovieDTO(MovieAsExtractedFromTmdbDTO movie, List<GenreDTO> genreList) {
-		MovieDTO dto = delegate.MovieExtractedFromMoviesByGenreServiceDTOToMovieDTO(movie, genreList);
+	public MovieDTO movieExtractedFromMoviesByGenreServiceDTOToMovieDTO(MovieAsExtractedFromTmdbDTO movie, List<GenreDTO> genreList) {
+		MovieDTO dto = delegate.movieExtractedFromMoviesByGenreServiceDTOToMovieDTO(movie, genreList);
 		if (!StringUtils.isEmpty(movie.getReleaseDate())) {
 			dto.setYear(LocalDate.parse(movie.getReleaseDate()).getYear());
 		}

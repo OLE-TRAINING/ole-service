@@ -13,13 +13,19 @@ public class RandomGenerator {
 		return ThreadLocalRandom.current().nextBoolean();
 	}
 	
-	public static BigDecimal getRandomFormattedPrice() {
-		BigDecimal price = BigDecimal.valueOf(ThreadLocalRandom.current().nextDouble(1.99, 70));
+	public static BigDecimal getRandomPrice() {
+		return BigDecimal.valueOf(ThreadLocalRandom.current().nextDouble(1.99, 70));
+	}
+	
+	public static BigDecimal getFormattedPrice(BigDecimal price) {
 		return price.setScale(2, BigDecimal.ROUND_HALF_EVEN);
 	}
 	
-	public static String getRandomFormattedRuntime() {
-		int runtime = ThreadLocalRandom.current().nextInt(50, 181);
+	public static Integer getRandomRuntime() {
+		return ThreadLocalRandom.current().nextInt(50, 181);
+	}
+	
+	public static String getFormattedRuntime(Integer runtime) {
 		StringBuilder runtimeFormatted = new StringBuilder();
 		int hours = runtime/60;
 		if (hours != 0) {
@@ -35,4 +41,10 @@ public class RandomGenerator {
 		}
 		return runtimeFormatted.toString();
 	} 
+	
+	public static String getRandomName() {
+		String[] randomNames = {"Martin Scorsese", "Quentin Tarantino", "James Cameron", "Stanley Kubrick", "Steven Spielberg",
+				"Seth Rogen", "Martin Campbell", "Alfred Hitchcock", "Sam Raimi", "George Lucas"};
+		return randomNames[ThreadLocalRandom.current().nextInt(0, randomNames.length)];
+	}
 }
