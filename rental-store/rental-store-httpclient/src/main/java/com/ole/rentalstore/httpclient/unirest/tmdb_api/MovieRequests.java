@@ -8,7 +8,7 @@ public class MovieRequests extends TmdbCommonResources {
 
 	private static final Logger LOGGER = Logger.getLogger(GenreRequests.class);
 	private static final String MOVIE_LIST_BY_GENRE_URL = "/discover/movie";
-	private static final String MOVIE_LIST_BY_SIMILARITY_URL = "/discover/movie";
+	private static final String MOVIE_LIST_BY_SIMILARITY_URL = "/movie/%s/similar";
 	private static final String MOVIE_LIST_BY_NAME_URL = "/search/movie";
 	
 	private MovieRequests() {
@@ -25,8 +25,8 @@ public class MovieRequests extends TmdbCommonResources {
 		return makeRequest(MovieAsTmdbResponseDTO.class, url, LOGGER);
 	}
 	
-	public static MovieAsTmdbResponseDTO getMoviesListBySimilarity(String params) {
-		String url = BASE_URL + MOVIE_LIST_BY_SIMILARITY_URL + API_KEY + LANGUAGE + ADULT + params;
+	public static MovieAsTmdbResponseDTO getMoviesListBySimilarity(String movieId, String params) {
+		String url = BASE_URL + String.format(MOVIE_LIST_BY_SIMILARITY_URL, movieId) + API_KEY + LANGUAGE  + params;
 		return makeRequest(MovieAsTmdbResponseDTO.class, url, LOGGER);
 	}
 }

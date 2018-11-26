@@ -13,9 +13,4 @@ public class PageWebGetMovies implements PageStrategy {
 	public <T> List<T> formatResponseList(List<T> list, Integer page) {
 		return list;
 	}
-
-	@Override
-	public Integer getTotalPages(Integer totalMovies, Integer amount) {
-		return totalMovies / amount;
-	}
 }

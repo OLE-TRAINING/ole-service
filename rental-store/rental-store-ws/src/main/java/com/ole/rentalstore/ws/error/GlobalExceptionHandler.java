@@ -13,6 +13,7 @@ import com.ole.rentalstore.commons.error.ErrorResponse;
 import com.ole.rentalstore.commons.exceptions.bad_request.BadRequestException;
 import com.ole.rentalstore.commons.exceptions.conflict.ConflitException;
 import com.ole.rentalstore.commons.exceptions.not_found.NotFoundException;
+import com.ole.rentalstore.commons.exceptions.not_found.returning_id.NotFoundReturningSearchIdException;
 import com.ole.rentalstore.commons.exceptions.unauthorized.UnauthorizedException;
 
 @ControllerAdvice
@@ -47,6 +48,13 @@ public class GlobalExceptionHandler {
 	@ExceptionHandler(value = { NotFoundException.class })
 	public ResponseEntity<Object> handleResourcesNotFound(NotFoundException ex) {
 		ErrorResponse error = buildErrorResponse(ex.getErrorResponse().getKey());
+		return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+	}
+	
+	@ExceptionHandler(value = { NotFoundReturningSearchIdException.class })
+	public ResponseEntity<Object> handleResourcesNotFoundReturningSearchId(NotFoundReturningSearchIdException ex) {
+		ErrorResponse error = buildErrorResponse(ex.getErrorResponse().getKey());
+		error.setMessage(error.getMessage() + ex.getSearchId());
 		return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
 	}
 	

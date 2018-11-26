@@ -21,13 +21,4 @@ public class PageMobileGetMovies implements PageStrategy {
 			return PageUtils.getAppropriatedSubList(list, 0, 10);
 		}
 	}
-
-	@Override
-	public Integer getTotalPages(Integer totalMovies, Integer amount) {
-		Integer totalPages = totalMovies / amount;
-		if (totalMovies % amount != 0) {
-			totalPages += 1;
-		}
-		return totalPages;
-	}
 }
