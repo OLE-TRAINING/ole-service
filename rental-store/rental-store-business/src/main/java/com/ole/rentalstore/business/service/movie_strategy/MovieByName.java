@@ -4,7 +4,7 @@ import com.ole.rentalstore.commons.error.ErrorMessage;
 import com.ole.rentalstore.commons.error.ErrorResponse;
 import com.ole.rentalstore.commons.exceptions.not_found.returning_id.MovieNotFoundByNameException;
 import com.ole.rentalstore.httpclient.unirest.tmdb_api.MovieRequests;
-import com.ole.rentalstore.httpclient.unirest.tmdb_api.util.MovieAsTmdbResponseDTO;
+import com.ole.rentalstore.httpclient.unirest.tmdb_api.utils.MovieAsTmdbResponseDTO;
 import com.ole.rentalstore.httpclient.utils.UrlEncoder;
 
 public class MovieByName implements MovieStrategy {

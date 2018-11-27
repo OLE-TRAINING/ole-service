@@ -10,33 +10,20 @@ import org.springframework.beans.factory.annotation.Qualifier;
 
 import com.ole.rentalstore.commons.dto.tmdb_api.GenreDTO;
 import com.ole.rentalstore.commons.dto.tmdb_api.MovieDTO;
-import com.ole.rentalstore.httpclient.unirest.tmdb_api.util.MovieAsExtractedFromTmdbDTO;
+import com.ole.rentalstore.commons.dto.tmdb_api.MovieDetailedDTO;
+import com.ole.rentalstore.httpclient.unirest.tmdb_api.utils.MovieAsExtractedFromTmdbDTO;
+import com.ole.rentalstore.httpclient.unirest.tmdb_api.utils.MovieDetailedAsTmdbResponseDTO;
+import com.ole.rentalstore.httpclient.unirest.tmdb_api.utils.ProductionCountriesDTO;
 
 public abstract class MovieMapperDecorator implements MovieMapper {
 
 	@Autowired
 	@Qualifier("delegate")
 	private MovieMapper delegate;
-	
-	private List<String> parseGenreIdToGenreNames(List<Integer> genreIds, List<GenreDTO> genreList) {
-		List<String> genreNames = new ArrayList<>();
-		for (Integer genreId : genreIds) {
-			for (GenreDTO genre : genreList) {
-				if (genreId.equals(genre.getId())) {
-					genreNames.add(genre.getName());
-				}
-			}
-		}
-		return genreNames;
-	}
-	
-	private String filterImageId(String imagePath) {
-		int index = imagePath.indexOf('.');
-		return imagePath.substring(1, index);
-	}
-	
+
 	@Override
-	public MovieDTO movieExtractedFromMoviesByGenreServiceDTOToMovieDTO(MovieAsExtractedFromTmdbDTO movie, List<GenreDTO> genreList) {
+	public MovieDTO movieExtractedFromMoviesByGenreServiceDTOToMovieDTO(MovieAsExtractedFromTmdbDTO movie,
+			List<GenreDTO> genreList) {
 		MovieDTO dto = delegate.movieExtractedFromMoviesByGenreServiceDTOToMovieDTO(movie, genreList);
 		if (!StringUtils.isEmpty(movie.getReleaseDate())) {
 			dto.setYear(LocalDate.parse(movie.getReleaseDate()).getYear());
@@ -49,5 +36,48 @@ public abstract class MovieMapperDecorator implements MovieMapper {
 		}
 		dto.setGenreNames(parseGenreIdToGenreNames(movie.getGenreIds(), genreList));
 		return dto;
+	}
+
+	@Override
+	public MovieDetailedDTO movieDetailedAsTmdbResponseDTOToMovieDetailedDTO(
+			MovieDetailedAsTmdbResponseDTO movieDetailed, List<GenreDTO> genreList) {
+		MovieDetailedDTO dto = delegate.movieDetailedAsTmdbResponseDTOToMovieDetailedDTO(movieDetailed, genreList);
+		dto.setCountries(parseProductionCountriesToStringCountries(movieDetailed.getCountries()));
+		setMovieDetailedDTOCustomizedAttributesFromMovieDTO(movieDetailed, dto, genreList);
+		return dto;
+	}
+
+	private void setMovieDetailedDTOCustomizedAttributesFromMovieDTO(MovieDetailedAsTmdbResponseDTO movieDetailed,
+			MovieDetailedDTO dto, List<GenreDTO> genreList) {
+		MovieDTO movieDTO = movieExtractedFromMoviesByGenreServiceDTOToMovieDTO(movieDetailed, genreList);
+		dto.setAcquired(movieDTO.isAcquired());
+		dto.setFavorit(movieDTO.isFavorit());;
+		dto.setGenreNames(movieDTO.getGenreNames());
+		dto.setYear(movieDTO.getYear());
+	}
+
+	private List<String> parseGenreIdToGenreNames(List<Integer> genreIds, List<GenreDTO> genreList) {
+		List<String> genreNames = new ArrayList<>();
+		for (Integer genreId : genreIds) {
+			for (GenreDTO genre : genreList) {
+				if (genreId.equals(genre.getId())) {
+					genreNames.add(genre.getName());
+				}
+			}
+		}
+		return genreNames;
+	}
+
+	private String filterImageId(String imagePath) {
+		int index = imagePath.indexOf('.');
+		return imagePath.substring(1, index);
+	}
+
+	private List<String> parseProductionCountriesToStringCountries(List<ProductionCountriesDTO> countries) {
+		List<String> countriesParsed = new ArrayList<>();
+		for (ProductionCountriesDTO country : countries) {
+			countriesParsed.add(country.getName());
+		}
+		return countriesParsed;
 	}
 }

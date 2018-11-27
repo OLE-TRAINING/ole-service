@@ -1,7 +1,7 @@
 package com.ole.rentalstore.business.service.movie_strategy;
 
 import com.ole.rentalstore.httpclient.unirest.tmdb_api.MovieRequests;
-import com.ole.rentalstore.httpclient.unirest.tmdb_api.util.MovieAsTmdbResponseDTO;
+import com.ole.rentalstore.httpclient.unirest.tmdb_api.utils.MovieAsTmdbResponseDTO;
 
 public class MovieBySimilarity implements MovieStrategy {
 

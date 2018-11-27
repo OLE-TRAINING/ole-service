@@ -2,8 +2,8 @@ package com.ole.rentalstore.httpclient.unirest.tmdb_api;
 
 import org.apache.log4j.Logger;
 
-import com.ole.rentalstore.httpclient.unirest.tmdb_api.util.MovieAsTmdbResponseDTO;
-import com.ole.rentalstore.httpclient.unirest.tmdb_api.util.MovieDetailedAsTmdbResponseDTO;
+import com.ole.rentalstore.httpclient.unirest.tmdb_api.utils.MovieAsTmdbResponseDTO;
+import com.ole.rentalstore.httpclient.unirest.tmdb_api.utils.MovieDetailedAsTmdbResponseDTO;
 
 public class MovieRequests extends TmdbCommonResources {
 
@@ -33,7 +33,7 @@ public class MovieRequests extends TmdbCommonResources {
 	}
 	
 	public static MovieDetailedAsTmdbResponseDTO getMovieDetails(Integer movieId) {
-		String url = BASE_URL + String.format(MOVIE_DETAILS_URL, movieId) + API_KEY + LANGUAGE;
+		String url = BASE_URL + String.format(MOVIE_DETAILS_URL, movieId) + API_KEY + LANGUAGE + APPEND_TO_RESPONSE + CREDITS_APPENDED_TO_RESPONSE;
 		return makeRequest(MovieDetailedAsTmdbResponseDTO.class, url, LOGGER);
 	}
 }
