@@ -65,9 +65,11 @@ public abstract class MovieMapperDecorator implements MovieMapper {
 			MovieDetailedDTO dto, List<GenreDTO> genreList) {
 		MovieDTO movieDTO = movieExtractedFromMoviesByGenreServiceDTOToMovieDTO(movieDetailed, genreList);
 		dto.setAcquired(movieDTO.isAcquired());
-		dto.setFavorit(movieDTO.isFavorit());;
+		dto.setFavorit(movieDTO.isFavorit());
 		dto.setGenreNames(movieDTO.getGenreNames());
 		dto.setYear(movieDTO.getYear());
+		dto.setPosterId(movieDTO.getPosterId());
+		dto.setBannerId(movieDTO.getBannerId());
 	}
 
 	private List<String> parseGenreIdToGenreNames(List<Integer> genreIds, List<GenreDTO> genreList) {
