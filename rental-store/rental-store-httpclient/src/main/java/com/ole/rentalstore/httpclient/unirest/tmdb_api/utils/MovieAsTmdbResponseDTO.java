@@ -1,4 +1,4 @@
-package com.ole.rentalstore.httpclient.unirest.tmdb_api.util;
+package com.ole.rentalstore.httpclient.unirest.tmdb_api.utils;
 
 import java.util.List;
 
