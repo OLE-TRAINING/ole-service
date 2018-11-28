@@ -4,15 +4,24 @@ import java.util.List;
 
 public class MovieDetailedDTO extends MovieDTO {
 
-	private List<CrewMemberDTO> crew;
+	private List<String> directors;
+	private List<String> writers;
 	private List<String> countries;
 
-	public List<CrewMemberDTO> getCrew() {
-		return crew;
+	public List<String> getDirectors() {
+		return directors;
 	}
 
-	public void setCrew(List<CrewMemberDTO> crew) {
-		this.crew = crew;
+	public void setDirectors(List<String> directors) {
+		this.directors = directors;
+	}
+
+	public List<String> getWriters() {
+		return writers;
+	}
+
+	public void setWriters(List<String> writers) {
+		this.writers = writers;
 	}
 
 	public List<String> getCountries() {

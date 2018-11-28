@@ -8,6 +8,7 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
+import com.ole.rentalstore.commons.dto.tmdb_api.CrewMemberDTO;
 import com.ole.rentalstore.commons.dto.tmdb_api.GenreDTO;
 import com.ole.rentalstore.commons.dto.tmdb_api.MovieDTO;
 import com.ole.rentalstore.commons.dto.tmdb_api.MovieDetailedDTO;
@@ -41,10 +42,23 @@ public abstract class MovieMapperDecorator implements MovieMapper {
 	@Override
 	public MovieDetailedDTO movieDetailedAsTmdbResponseDTOToMovieDetailedDTO(
 			MovieDetailedAsTmdbResponseDTO movieDetailed, List<GenreDTO> genreList) {
+		
 		MovieDetailedDTO dto = delegate.movieDetailedAsTmdbResponseDTOToMovieDetailedDTO(movieDetailed, genreList);
 		dto.setCountries(parseProductionCountriesToStringCountries(movieDetailed.getCountries()));
+		dto.setDirectors(getMovieDetailedDTOCrewMembersNameByWorkAs(movieDetailed, "Directing"));		
+		dto.setWriters(getMovieDetailedDTOCrewMembersNameByWorkAs(movieDetailed, "Writing"));
 		setMovieDetailedDTOCustomizedAttributesFromMovieDTO(movieDetailed, dto, genreList);
 		return dto;
+	}
+	
+	private List<String> getMovieDetailedDTOCrewMembersNameByWorkAs(MovieDetailedAsTmdbResponseDTO movieDetailed, String department) {
+		List<String> names = new ArrayList<>();
+		for (CrewMemberDTO crewMember : movieDetailed.getCredits().getCrew()) {
+			if (crewMember.getDepartment().equals(department)) {
+				names.add(crewMember.getName());
+			}
+		}
+		return names;
 	}
 
 	private void setMovieDetailedDTOCustomizedAttributesFromMovieDTO(MovieDetailedAsTmdbResponseDTO movieDetailed,
