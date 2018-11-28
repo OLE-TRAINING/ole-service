@@ -2,7 +2,7 @@ package com.ole.rentalstore.business.service.page_strategy;
 
 import com.ole.rentalstore.business.service.movie_strategy.MovieStrategy;
 import com.ole.rentalstore.business.service.movie_strategy.MovieStrategyFactory;
-import com.ole.rentalstore.httpclient.unirest.tmdb_api.util.MovieAsTmdbResponseDTO;
+import com.ole.rentalstore.httpclient.unirest.tmdb_api.utils.MovieAsTmdbResponseDTO;
 
 public class PageProcessor {
 
