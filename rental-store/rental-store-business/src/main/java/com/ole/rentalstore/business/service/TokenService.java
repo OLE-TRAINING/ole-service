@@ -3,6 +3,7 @@ package com.ole.rentalstore.business.service;
 import org.apache.commons.lang.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.mail.MailSendException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
@@ -11,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.ole.rentalstore.commons.error.ErrorMessage;
 import com.ole.rentalstore.commons.error.ErrorResponse;
 import com.ole.rentalstore.commons.exceptions.not_found.InexistentEmailOnDatabaseException;
+import com.ole.rentalstore.commons.exceptions.not_found.UnreachableEmailException;
 import com.ole.rentalstore.commons.utils.UserModelator;
 import com.ole.rentalstore.model.repositories.UserRepository;
 
@@ -45,7 +47,11 @@ public class TokenService {
 		mailMessage.setText(String.format(template, token));
 		mailMessage.setSubject(subject);
 		mailMessage.setTo(destinatary);
-		mailSender.send(mailMessage);
+		try {
+			mailSender.send(mailMessage);
+		} catch (MailSendException e) {
+			throw new UnreachableEmailException(new ErrorResponse(ErrorMessage.Inexistent.UNREACHABLE_EMAIL));
+		}
 	}
 	
 	@Transactional
