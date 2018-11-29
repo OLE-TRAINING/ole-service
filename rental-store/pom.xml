@@ -44,7 +44,7 @@
 				<artifactId>rental-store-model</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
-			
+
 			<dependency>
 				<groupId>rental-store</groupId>
 				<artifactId>rental-store-httpclient</artifactId>

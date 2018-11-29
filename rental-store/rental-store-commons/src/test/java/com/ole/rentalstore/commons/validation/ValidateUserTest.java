@@ -22,14 +22,6 @@ public class ValidateUserTest {
 	}
 	
 	@Test
-	public void testValidateUserInvalidEmail() {
-		user.setEmail("email@invalid");
-		ErrorResponse error = UserValidator.validateUser(user);
-		
-		assertThat(error.getKey()).isEqualTo("error.invalid.email");
-	}
-	
-	@Test
 	public void testValidateUserInvalidPassword() {
 		user.setPassword("password");
 		ErrorResponse error = UserValidator.validateUser(user);
@@ -47,7 +39,15 @@ public class ValidateUserTest {
 	
 	@Test
 	public void testValidateUserInvalidUsername() {
-		user.setEmail("bruno silva");
+		user.setUsername("bruno silva");
+		ErrorResponse error = UserValidator.validateUser(user);
+		
+		assertThat(error.getKey()).isEqualTo("error.invalid.username");
+	}
+	
+	@Test
+	public void testValidateUserInvalidEmail() {
+		user.setEmail("aa@-*com");
 		ErrorResponse error = UserValidator.validateUser(user);
 		
 		assertThat(error.getKey()).isEqualTo("error.invalid.email");

@@ -1,6 +1,7 @@
 package com.ole.rentalstore.commons.validation;
 
-import java.util.regex.Pattern;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
 
 import com.ole.rentalstore.commons.dto.UserDTO;
 import com.ole.rentalstore.commons.dto.UserForPasswordChangeDTO;
@@ -12,7 +13,12 @@ public class UserValidator {
 	private UserValidator() {}
 	
 	public static boolean validateEmail(String email) {
-		return Pattern.compile("^[\\w-\\+]+(\\.[\\w]+)*@[\\w-]+(\\.[\\w]+)*(\\.[a-z]{2,})$", Pattern.CASE_INSENSITIVE).matcher(email).matches();
+		try {
+			new InternetAddress(email).validate();
+			return true;
+		} catch (AddressException e) {
+			return false;
+		}
 	}
 	
 	public static boolean validateName(String name) {
