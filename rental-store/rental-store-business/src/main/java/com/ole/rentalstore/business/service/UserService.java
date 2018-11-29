@@ -43,6 +43,7 @@ public class UserService {
 		}
 	}
 	
+	@Transactional
 	public void createUser(UserDTO user) {
 		user.setEmail(UserModelator.getStringLowerCase(user.getEmail()));
 		if (isEmailOnDatabase(user.getEmail())) {
