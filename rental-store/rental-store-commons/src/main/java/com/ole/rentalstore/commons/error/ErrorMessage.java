@@ -34,7 +34,6 @@ public class ErrorMessage {
 		private Inexistent() {}
 		public static final String INEXISTENT_EMAIL = "error.inexistent.email";
 		public static final String INEXISTENT_USERNAME = "error.inexistent.username";
-		public static final String INEXISTENT_MOVIE_NAME = "error.inexistent.movie.name";
 		public static final String UNREACHABLE_EMAIL = "error.inexistent.email.smtp";
 	}
 	
