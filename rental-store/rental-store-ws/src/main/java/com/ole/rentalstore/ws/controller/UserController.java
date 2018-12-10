@@ -41,21 +41,21 @@ public class UserController {
 		userService.registerUser(email, token);
 	}
 	
-	@PostMapping("users/validate")
+	@PostMapping("/users/validate")
 	public void authenticateUser(@RequestBody UserDTO user) {
 		UserRequestValidator.validateEmailRequest(user.getEmail());
 		UserRequestValidator.validatePasswordRequest(user.getPassword());
 		userService.authenticateUser(user);
 	}
 	
-	@PostMapping("users/confirm-data")
+	@PostMapping("/users/confirm-data")
 	public void validateEmailAndUsername(@RequestBody UserDTO user) {
 		UserRequestValidator.validateEmailRequest(user.getEmail());
 		UserRequestValidator.validateUsernameRequest(user.getUsername());
 		userService.validateEmailAndUsername(user);
 	}
 	
-	@PutMapping("users/password")
+	@PutMapping("/users/password")
 	public void changeUserPassword(@RequestBody UserForPasswordChangeDTO user) {
 		UserRequestValidator.validateUserPasswordChangeRequest(user);
 		userService.changeUserPassword(user);
