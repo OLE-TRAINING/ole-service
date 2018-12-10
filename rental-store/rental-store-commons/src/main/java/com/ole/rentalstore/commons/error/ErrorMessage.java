@@ -41,7 +41,7 @@ public class ErrorMessage {
 		
 		private Unauthenticated() {}
 		public static final String INCORRECT_TOKEN = "error.unauthorized.token";
-		public static final String INCORRECT_PASSWORD = "error.unauthorized.password";
+		public static final String INCORRECT_PASSWORD = "error.unauthorized.login";
 		public static final String INCORRECT_USERNAME = "error.unauthorized.username";
 	}
 }
