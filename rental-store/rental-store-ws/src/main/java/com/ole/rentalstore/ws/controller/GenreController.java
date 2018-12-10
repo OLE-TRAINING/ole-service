@@ -14,7 +14,7 @@ public class GenreController {
 	@Autowired
 	private GenreService genreService;
 
-	@GetMapping("genres")
+	@GetMapping("/genres")
 	public ResponseEntity<GenreResponseDTO> getMovieGenres() {
 		return ResponseEntity.ok(genreService.getMovieGenres());
 	}

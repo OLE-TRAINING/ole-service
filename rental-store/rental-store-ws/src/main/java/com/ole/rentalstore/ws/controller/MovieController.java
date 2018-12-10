@@ -17,7 +17,7 @@ public class MovieController {
 	@Autowired
 	private MovieService movieService;
 
-	@GetMapping("movies")
+	@GetMapping("/movies")
 	public ResponseEntity<MovieResponseDTO> getMovies(@RequestParam("filter_id") String filterId,
 													  @RequestParam("amount") Integer amount, 
 													  @RequestParam("page") Integer page,
@@ -25,7 +25,7 @@ public class MovieController {
 		return ResponseEntity.ok(movieService.getMovies(filterId, page, amount, filter));
 	}
 	
-	@GetMapping("movies/{id}/detail")
+	@GetMapping("/movies/{id}/detail")
 	public ResponseEntity<MovieDetailedDTO> getMovieDetails(@PathVariable("id") Integer id) {
 		return ResponseEntity.ok(movieService.getMovieDetails(id));
 	}
