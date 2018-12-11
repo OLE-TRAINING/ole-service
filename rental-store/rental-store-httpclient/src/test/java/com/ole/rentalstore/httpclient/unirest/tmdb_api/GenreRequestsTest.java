@@ -1,13 +1,14 @@
 package com.ole.rentalstore.httpclient.unirest.tmdb_api;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import org.json.JSONException;
 import org.junit.Test;
-import org.junit.Test.None;
 
 public class GenreRequestsTest {
 
-	@Test(expected = None.class)
+	@Test
 	public void testGetGenresList() throws JSONException {
-		GenreRequests.getGenresList();
+		assertThat(GenreRequests.getGenresList().getGenres()).isNotNull();
 	}
 }

@@ -34,4 +34,30 @@ public class NullFieldValidatorTest {
 			assertThat(ex.getFieldName()).isEqualTo("username");
 		}
 	}
+	
+	@Test
+	public void testCheckForNullFieldsPasswordNull() throws IllegalAccessException {
+		UserDTO user = new UserDTO();
+		user.setUsername("user");
+		user.setCompleteName("cp");
+		user.setEmail("u1@");
+		try {
+			NullFieldValidator.checkForNullFields(user);
+		} catch (NullFieldException ex) {
+			assertThat(ex.getFieldName()).isEqualTo("password");
+		}
+	}
+	
+	@Test
+	public void testCheckForNullFieldsCompleteNameNull() throws IllegalAccessException {
+		UserDTO user = new UserDTO();
+		user.setPassword("p");
+		user.setUsername("user");
+		user.setEmail("u1@");
+		try {
+			NullFieldValidator.checkForNullFields(user);
+		} catch (NullFieldException ex) {
+			assertThat(ex.getFieldName()).isEqualTo("completeName");
+		}
+	}
 }

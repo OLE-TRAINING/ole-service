@@ -11,8 +11,4 @@ private UserModelator() {}
 		user.setRegistrationStatus(RegistrationStatus.INEXISTENT);
 		return user;
 	}
-	
-	public static String getStringLowerCase(String str) {
-		return str.toLowerCase();
-	}
 }
