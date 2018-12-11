@@ -33,7 +33,9 @@ public class RandomGenerator {
 		}
 		int minutes = runtime%60;
 		if (minutes != 0) {
-			runtimeFormatted.append(' ');
+			if (hours != 0) {
+				runtimeFormatted.append(' ');
+			}
 			if (minutes < 10) {
 				runtimeFormatted.append('0');
 			}
@@ -41,10 +43,4 @@ public class RandomGenerator {
 		}
 		return runtimeFormatted.toString();
 	} 
-	
-	public static String getRandomName() {
-		String[] randomNames = {"Martin Scorsese", "Quentin Tarantino", "James Cameron", "Stanley Kubrick", "Steven Spielberg",
-				"Seth Rogen", "Martin Campbell", "Alfred Hitchcock", "Sam Raimi", "George Lucas"};
-		return randomNames[ThreadLocalRandom.current().nextInt(0, randomNames.length)];
-	}
 }

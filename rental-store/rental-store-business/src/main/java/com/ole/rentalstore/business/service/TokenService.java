@@ -13,7 +13,7 @@ import com.ole.rentalstore.commons.error.ErrorMessage;
 import com.ole.rentalstore.commons.error.ErrorResponse;
 import com.ole.rentalstore.commons.exceptions.not_found.InexistentEmailOnDatabaseException;
 import com.ole.rentalstore.commons.exceptions.not_found.UnreachableEmailException;
-import com.ole.rentalstore.commons.utils.UserModelator;
+import com.ole.rentalstore.commons.utils.StringManipulator;
 import com.ole.rentalstore.model.repositories.UserRepository;
 
 @Service
@@ -56,7 +56,7 @@ public class TokenService {
 	
 	@Transactional
 	public void processToken(String email) {
-		String emailCaseIgnored = UserModelator.getStringLowerCase(email);
+		String emailCaseIgnored = StringManipulator.getStringLowerCase(email);
 		if (!userService.isEmailOnDatabase(emailCaseIgnored)) {
 			throw new InexistentEmailOnDatabaseException(new ErrorResponse(ErrorMessage.Inexistent.INEXISTENT_EMAIL));
 		}
