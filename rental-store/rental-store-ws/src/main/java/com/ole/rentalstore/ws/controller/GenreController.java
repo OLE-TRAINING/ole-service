@@ -18,4 +18,10 @@ public class GenreController {
 	public ResponseEntity<GenreResponseDTO> getMovieGenres() {
 		return ResponseEntity.ok(genreService.getMovieGenres());
 	}
+	
+	@GetMapping("/v2/genres")
+	public ResponseEntity<GenreResponseDTO> getMovieGenresV2() {
+		return ResponseEntity.ok(genreService.getMovieGenresV2());
+	}
+	
 }

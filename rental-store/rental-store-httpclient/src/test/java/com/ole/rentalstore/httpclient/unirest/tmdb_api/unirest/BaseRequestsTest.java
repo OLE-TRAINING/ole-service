@@ -11,6 +11,7 @@ import org.springframework.test.util.ReflectionTestUtils;
 
 import com.github.tomakehurst.wiremock.junit.WireMockClassRule;
 import com.github.tomakehurst.wiremock.matching.StringValuePattern;
+import com.ole.rentalstore.httpclient.unirest.configuration.HttpClient;
 import com.ole.rentalstore.httpclient.unirest.tmdb_api.TmdbCommonResources;
 
 public class BaseRequestsTest {
