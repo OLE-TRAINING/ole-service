@@ -10,14 +10,19 @@ import com.ole.rentalstore.httpclient.exceptions.error_handler_chain.ErrorHandle
 import com.ole.rentalstore.httpclient.exceptions.error_handler_chain.ErrorHandlerBuilder;
 import com.ole.rentalstore.httpclient.unirest.UnirestCommonResources;
 
-public abstract class TmdbCommonResources extends UnirestCommonResources{
+public class TmdbCommonResources extends UnirestCommonResources {
 
-	protected static final String BASE_URL = "https://api.themoviedb.org/3";
+	public static String BASE_URL = "https://api.themoviedb.org/3";
 	protected static final String API_KEY = "?api_key=d272326e467344029e68e3c4ff0b4059";
 	protected static final String LANGUAGE = "&language=pt-BR";
 	protected static final String ADULT = "&include_adult=true";
 	protected static final String APPEND_TO_RESPONSE = "&append_to_response=";
 	protected static final String CREDITS_APPENDED_TO_RESPONSE = "credits";
+	
+	/*@Value("${tmdp.url}")
+	private String baseUrl;
+	
+	Reflections*/
 	
 	protected static ErrorHandler errorHandler = ErrorHandlerBuilder.buildErrorHandler();
 	
