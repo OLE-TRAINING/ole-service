@@ -20,4 +20,29 @@ public class GenreResponseDTO {
 	public void addGenre(GenreDTO genre) {
 		genres.add(genre);
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((genres == null) ? 0 : genres.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		GenreResponseDTO other = (GenreResponseDTO) obj;
+		if (genres == null) {
+			if (other.genres != null)
+				return false;
+		} else if (!genres.equals(other.genres))
+			return false;
+		return true;
+	}
 }
