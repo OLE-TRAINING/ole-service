@@ -1,33 +1,44 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <parent>
-	    <groupId>rental-store</groupId>
-	    <artifactId>rental-store-services</artifactId>
-	    <version>0.0.1-SNAPSHOT</version>
-  </parent>
-  <artifactId>rental-store-model</artifactId>
-  
-  <dependencies>
-  
-  		<dependency>
-		    <groupId>org.springframework.boot</groupId>
-		    <artifactId>spring-boot-starter-data-jpa</artifactId>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>rental-store</groupId>
+		<artifactId>rental-store-services</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<artifactId>rental-store-model</artifactId>
+
+	<properties>
+		<sonar.exclusions>
+			src/main/java/com/ole/rentalstore/model/configuration/**/*.class,
+			src/main/java/com/ole/rentalstore/model/configuration/**/*.java,
+			src/main/java/com/ole/rentalstore/model/entities/**/*.class,
+			src/main/java/com/ole/rentalstore/model/entities/**/*.java
+		</sonar.exclusions>
+	</properties>
+
+	<dependencies>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 		</dependency>
-        
-        <dependency>
+
+		<dependency>
 			<groupId>rental-store</groupId>
 			<artifactId>rental-store-commons</artifactId>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
 		</dependency>
-			
-  </dependencies>
+
+	</dependencies>
 </project>

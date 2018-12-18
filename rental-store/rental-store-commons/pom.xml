@@ -8,6 +8,19 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>rental-store-commons</artifactId>
+	
+	<properties>
+		<sonar.exclusions>
+			src/main/java/com/ole/rentalstore/commons/dto/**/*.class,
+			src/main/java/com/ole/rentalstore/commons/dto/**/*.java,
+			src/main/java/com/ole/rentalstore/commons/error/**/*.class,
+			src/main/java/com/ole/rentalstore/commons/error/**/*.java,
+			src/main/java/com/ole/rentalstore/commons/exceptions/**/*.class,
+			src/main/java/com/ole/rentalstore/commons/exceptions/**/*.java
+			src/main/java/com/ole/rentalstore/commons/configuration/**/*.class,
+			src/main/java/com/ole/rentalstore/commons/configuration/**/*.java
+		</sonar.exclusions>
+	</properties>
 
 	<dependencies>
 

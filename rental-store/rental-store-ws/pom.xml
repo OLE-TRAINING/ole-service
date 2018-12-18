@@ -12,6 +12,10 @@
 
 	<properties>
 		<project.build.encoding>UTF-8</project.build.encoding>
+		<sonar.exclusions>
+			src/main/java/com/ole/rentalstore/ws/error/**/*.class,
+			src/main/java/com/ole/rentalstore/ws/error/**/*.java
+		</sonar.exclusions>
 	</properties>
 
 	<dependencies>

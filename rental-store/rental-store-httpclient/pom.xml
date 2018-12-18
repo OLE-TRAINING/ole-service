@@ -8,6 +8,15 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>rental-store-httpclient</artifactId>
+	
+	<properties>
+		<sonar.exclusions>
+			src/main/java/com/ole/rentalstore/httpclient/configuration/**/*.class,
+			src/main/java/com/ole/rentalstore/httpclient/configuration/**/*.java,
+			src/main/java/com/ole/rentalstore/httpclient/exceptions/**/*.class,
+			src/main/java/com/ole/rentalstore/httpclient/exceptions/**/*.java
+		</sonar.exclusions>
+	</properties>
 
 	<dependencies>
 		<dependency>
